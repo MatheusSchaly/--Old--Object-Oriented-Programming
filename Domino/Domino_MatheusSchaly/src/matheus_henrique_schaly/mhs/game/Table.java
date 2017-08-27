@@ -27,7 +27,7 @@ public class Table {
     /**
      * Table's constructor.
      */
-    public void Table() {
+    public Table() {
         createBoneyard();
         shuffle();
         round = 1;
@@ -54,6 +54,10 @@ public class Table {
      */
     public void addRound() {
         setRound(getRound() + 1);
+    }
+    
+    public void chainFirstTile(Tile tile) {
+        getTilesChain().add(tile);
     }
 
     /**

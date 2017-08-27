@@ -1,7 +1,5 @@
 package matheus_henrique_schaly.mhs.game;
 
-import java.util.*;
-
 /**
  * User input output.
  */

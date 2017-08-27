@@ -125,7 +125,7 @@ public final class DominoGame {
      */
     public void createBots(int numBots) {
         String botNames[] = {"Roy Batty", "Leaon Kowalski", "Pris Stratton", "Zhora Salome"};
-        for (int i = 0; i < getNumPlayers(); i++) {
+        for (int i = 0; i < numBots; i++) {
             getPlayers().add(new Player(botNames[i]));
         }
     }
@@ -156,12 +156,12 @@ public final class DominoGame {
      */
     public void playFirstTile() {
         Tile playedTile;
-        for (int i = 6; i != -1; i++) {
+        for (int i = 6; i != -1; i--) {
             for (int j = 0; j < getNumPlayers(); j++) {
-                for (int k = 0; j < getPlayers().get(j).getHand().size(); k++) {
+                for (int k = 0; k < getPlayers().get(j).getHand().size(); k++) {
                     if (getPlayers().get(j).getHand().get(k).getLeftValue() == i && getPlayers().get(j).getHand().get(k).getRightValue() == i) {
                         playedTile = getPlayers().get(j).playTile(k);  
-                        getTable().addChainLeftTile(playedTile);
+                        getTable().chainFirstTile(playedTile);
                         setCurrentPlayer(getPlayers().get(j));
                         setPlayerArrayIndex(k);
                         return;
@@ -173,10 +173,10 @@ public final class DominoGame {
             for (int j = 6; j > i - 1; j--) {
                 if (j != i) {
                      for (int k = 0; j < getNumPlayers(); j++) {
-                         for (int l = 0; j < getPlayers().get(k).getHand().size(); k++) {
+                         for (int l = 0; l < getPlayers().get(k).getHand().size(); l++) {
                             if (getPlayers().get(k).getHand().get(l).getLeftValue() == i && getPlayers().get(k).getHand().get(l).getRightValue() == j) {
                                 playedTile = getPlayers().get(j).playTile(k);  
-                                getTable().addChainLeftTile(playedTile);
+                                getTable().chainFirstTile(playedTile);
                                 setCurrentPlayer(getPlayers().get(k));
                                 setPlayerArrayIndex(k);
                                 return;
