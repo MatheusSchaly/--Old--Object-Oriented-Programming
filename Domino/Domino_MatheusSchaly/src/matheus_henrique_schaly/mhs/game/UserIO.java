@@ -18,15 +18,11 @@ public class UserIO {
      * Runs UserIO.
      */
     public void run() {
-        int numPlayers = Console.readInt("Number of players: ");
-        getDominoGame().setNumPlayers(numPlayers); // talvez usar no construtor
-        ArrayList<String> names = new ArrayList(numPlayers); // eh soh o nome do user carai
-        for (int i = 0; i < numPlayers; i++) {
-            names.add(Console.readString("Name of " + i + "º player:"));
-        }
-        getDominoGame().setPlayersNames(names);
-        getDominoGame().setPlayersHand(); // talvez usar no construtor
-        getDominoGame().playFirstTile();
+        String userIsPlayer = Console.readString("Do you want to play?");
+        String userName = Console.readString("Enter your name:");
+        int numBots = Console.readInt("Number of bots: ");
+        setDominoGame(new DominoGame(numBots, userName));
+        setDominoGame(new DominoGame(numBots));
         playOneTurn();
     }
 
@@ -35,10 +31,10 @@ public class UserIO {
      */
     public void playOneTurn() {
         do {
-            printCurrentTurn();
             if (getDominoGame().getCurrentPlayer().getIsUser()) {
                 printPlayerStatus();
                 promptUser();
+                printCurrentTurn();
             }
             else {
                 // CONTINUE HERE, MAKE AN AI
@@ -70,14 +66,14 @@ public class UserIO {
      * Prints user menu.
      */
     public void promptUser() {
-        Scanner input = new Scanner(System.in);
-        int userOption = userMenu();
+        int userOption = Console.readInt("Choose:\n"
+                + "1 - Play a tile.\n"
+                + "2 -Draw a tile.\n"
+                + "3 - Pass.\n");
         switch (userOption) {
             case 1:
-                int userTile;
-                System.out.println("Which tile do you want to play?");
-                userTile = input.nextInt(); // Cagou de novo
-                getDominoGame().getCurrentPlayer().playTile(userTile);
+                int tilePosition = Console.readInt("Which tile do you want to play?");
+                getDominoGame().playPlayerTile(tilePosition);
                 break;
             case 2:
                 getDominoGame().drawPlayerTile();
@@ -98,24 +94,19 @@ public class UserIO {
     }
     
     /**
-     * User menu.
-     * @return userOption
-     */
-    public static int userMenu () {
-        System.out.println("Choose:");
-        System.out.println("1 - Play a tile.");
-        System.out.println("2 - Draw a tile.");
-        System.out.println("3 - Pass.\n");
-        Scanner input = new Scanner(System.in); // Cagou pro console burro
-        return input.nextInt();
-    }
-    
-    /**
      * Getter.
      * @return dominoGame 
      */
     public DominoGame getDominoGame() {
         return dominoGame;
+    }
+    
+    /**
+     * Setter.
+     * @param dominoGame
+     */
+    public void setDominoGame(DominoGame dominoGame) {
+        this.dominoGame = dominoGame;
     }
 
 }

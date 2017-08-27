@@ -8,13 +8,6 @@ import java.util.*;
 public class Player {
 
     /**
-     * Default constructor
-     */
-    public Player() {
-        
-    }
-
-    /**
      * Player's hand.
      */
     private ArrayList<Tile> hand = new ArrayList();
@@ -22,7 +15,7 @@ public class Player {
     /**
      * Player's draw tiles.
      */
-    private ArrayList<Tile> drewTiles = new ArrayList(14); // talvez usar final nunca saberas.
+    private ArrayList<Tile> drewTiles = new ArrayList(14);
 
     /**
      * Player's name.
@@ -44,30 +37,14 @@ public class Player {
      */
     private boolean pass;
     
-
+    
     
     /**
      * Player's constructor.
      * @param name 
-     * @param tiles
      */
-    public void Player(String name, ArrayList tiles) {
-        // TODO implement here
-    }
-
-    /**
-     * Add a tile to player.
-     * @param tile
-     */
-    public void addTile(Tile tile) {
-        // TODO implement here
-    }
-
-    /**
-     * Remove a tile from player.
-     */
-    public void removeTile() {
-        // TODO implement here
+    public Player(String name) {
+        this.name = name;
     }
 
     /**
@@ -76,14 +53,6 @@ public class Player {
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * Setter.
-     * @param name
-     */
-    public void setName(String name) {
-        this.name = name;
     }
     
     /**
@@ -180,6 +149,7 @@ public class Player {
     public Tile playTile(int handTileIndex) {
         Tile playerPlayedTile = getHand().get(handTileIndex);
         getHand().remove(handTileIndex);
+        setPlayedTile(playerPlayedTile);
         return playerPlayedTile;
     }
 

@@ -10,7 +10,7 @@ public class Table {
     /**
      * Tables's boneyard.
      */
-    private ArrayList<Tile> boneyard = new ArrayList(28);
+    private ArrayList<Tile> boneyard = new ArrayList<>(28);
 
     /**
      * Tables's tile chain.
@@ -48,6 +48,13 @@ public class Table {
     public void setRound(int round) { // mudar para add
         this.round = round;
     }
+    
+    /**
+     * Add one round
+     */
+    public void addRound() {
+        setRound(getRound() + 1);
+    }
 
     /**
      * Getter.
@@ -61,12 +68,14 @@ public class Table {
     /**
      * Add a new tile to tiles chain's right side.
      * @param tile
+     * @return if added or not to the chain
      */
-    public void addChainRightTile(Tile tile) {
-        ArrayList<Tile> newChain = getTilesChain();
-        newChain.add(newChain.size(), tile);
-        setTilesChain(newChain);
-        //setTilesChain(getTilesChain().add(getTilesChain().size(), tile));
+    public boolean addChainRightTile(Tile tile) {
+        if (getChainRightTile().getRightValue() == tile.getLeftValue()) {
+            getTilesChain().add(getTilesChain().size(), tile);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -81,12 +90,14 @@ public class Table {
     /**
      * Add a new tile to tiles chain's left side.
      * @param tile
+     * @return if added or not to the chain
      */
-    public void addChainLeftTile(Tile tile) {
-        ArrayList<Tile> newChain = getTilesChain();
-        newChain.add(0, tile);
-        setTilesChain(newChain);
-        //setTilesChain(getTilesChain().add(0, tile));
+    public boolean addChainLeftTile(Tile tile) {
+        if (getChainLeftTile().getLeftValue() == tile.getRightValue()) {
+            getTilesChain().add(0, tile);
+            return true;
+        }
+        return false;
     }
     
     /**
@@ -109,7 +120,7 @@ public class Table {
      * Getter.
      * @return boneyard
      */
-    public ArrayList getBoneyard() {
+    public ArrayList<Tile> getBoneyard() {
         return boneyard;
     }
     
@@ -137,8 +148,8 @@ public class Table {
      * @return drewTile
      */
     public Tile drawBoneyardTile() {
-        Tile drewTile = boneyard.get(0);
-        boneyard.remove(0);
+        Tile drewTile = getBoneyard().get(0);
+        getBoneyard().remove(0);
         return drewTile;
     }
 
@@ -146,10 +157,7 @@ public class Table {
      * Shuffles the table's tiles.
      */
     public void shuffle() {
-        ArrayList<Tile> shuffledList = getBoneyard();
-        Collections.shuffle(shuffledList);
-        setBoneyard(shuffledList);
-        setBoneyard(Collections.shuffle(getBoneyard())); // pod ser ele n da retorn
+        Collections.shuffle(getBoneyard());
     }
 
 }

@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * The Domino Game.
  */
-public class DominoGame {
+public final class DominoGame {
 
     /**
      * Domino's match winner.
@@ -41,12 +41,28 @@ public class DominoGame {
     
     /**
      * Domino game's constructor.
+     * @param numBots
      */
-    public void DominoGame(int i, String name) { // ele manda numero d bots e o nome dele; criar construtor so para bots
-        ArrayList<String> names = {"Stevie", "Bob", "Lord"};
-        
+    public DominoGame(int numBots) {
+        createBots(numBots);
+        numPlayers = numBots;
+        setPlayersHand();
+        playFirstTile();
     }
-
+    
+    /**
+     * Domino game's constructor.
+     * @param numBots
+     * @param name
+     */
+    public DominoGame(int numBots, String name) {
+        createBots(numBots);
+        getPlayers().add(new Player(name));
+        numPlayers = numBots + 1;
+        setPlayersHand();
+        playFirstTile();
+    }
+    
     /**
      * Getter.
      * @return winner
@@ -105,11 +121,12 @@ public class DominoGame {
 
     /**
      * Setter.
-     * @param names
+     * @param numBots
      */
-    public void setPlayersNames(ArrayList<String> names) {
-        for (int i = 0; i < names.size(); i++) {
-            getPlayers().get(i).setName(names.get(i));
+    public void createBots(int numBots) {
+        String botNames[] = {"Roy Batty", "Leaon Kowalski", "Pris Stratton", "Zhora Salome"};
+        for (int i = 0; i < getNumPlayers(); i++) {
+            getPlayers().add(new Player(botNames[i]));
         }
     }
     
@@ -122,20 +139,15 @@ public class DominoGame {
         return getPlayers().get(player).getHand();
     }
     
+    /**
+     * Setter.
+     */
+    
     public void setPlayersHand() {
         for (int i = 0; i < getNumPlayers(); i++) {
             for (int j = 0; j < 7; j++) {
                 getPlayers().get(i).addHandTile(getTable().drawBoneyardTile());
             }
-        }
-    }
-    
-    /**
-     * Creates the players.
-     */
-    public void createPlayers() {
-        for (int i = 0; i < getNumPlayers(); i++) {
-            getPlayers().add(new Player());
         }
     }
     
@@ -182,6 +194,17 @@ public class DominoGame {
     public void drawPlayerTile() {
         Tile drewTile = getTable().drawBoneyardTile();
         getCurrentPlayer().drawTile(drewTile);
+    }
+    
+    /**
+     * Plays a tile for the player, add a tile to tile chain.
+     * @param tilePosition 
+     */
+    public void playPlayerTile(int tilePosition) {
+        Tile playerPlayedTile = getCurrentPlayer().playTile(tilePosition);
+        if (!getTable().addChainRightTile(playerPlayedTile)) {
+            getTable().addChainLeftTile(playerPlayedTile);
+        }
     }
     
     /**
