@@ -9,36 +9,9 @@ import java.time.LocalDate;
 public class Student extends Person {
     
     /**
-     * Telescoping pettern.
-     * 
-     * @param id student's enrollment number
-     * @param name student's name
-     * @param dateOfBirth student's birth date
-     * 
-     */
-    public Student(int rollNumber, String name, LocalDate dateOfBirth) {
-        super(name, dateOfBirth);
-        setRollNumber(rollNumber);
-        setDropDate(null);
-    }
-    
-        /**
-     * Telescoping pettern.
-     * 
-     * @param id student's enrollment number
-     * @param name student's name
-     * @param dateOfBirth student's birth date
-     * @param enrollmentDate student's first enrollment date
-     */
-    public Student(int rollNumber, String name, LocalDate dateOfBirth, LocalDate enrollmentDate) {
-        this(rollNumber, name, dateOfBirth);
-        setEnrollmentDate(enrollmentDate);
-    }
-         
-    /**
      * Student's enrollment number.
      */
-    private int rollNumber;
+    private int enrollmentNumber;
     
     /**
      * Student's first enrollment date.
@@ -49,6 +22,49 @@ public class Student extends Person {
      * Student's last enrollment date.
      */
     private LocalDate dropDate;
+    
+    
+    
+    /**
+     * Constructor.
+     * @param enrollmentNumber student's enrollment number
+     * @param name student's name
+     * @param dateOfBirth student's birth date
+     * @param enrollmentDate student's first enrollment date
+     */
+    public Student(int enrollmentNumber, String name, LocalDate dateOfBirth, LocalDate enrollmentDate) {
+        super(name, dateOfBirth);
+        this.enrollmentNumber = enrollmentNumber;
+        this.enrollmentDate = enrollmentDate;
+        this.dropDate = null;
+        validateState();
+    }
+    
+    /**
+     * Validates Student state.
+     */
+    private void validateState() {
+        validateRollNumber();
+        validateEnrollmentDate();
+    }
+    
+    /**
+     * Validates enrollment number.
+     */
+    private void validateRollNumber() {
+        if (enrollmentNumber < 0) {
+            throw new IllegalArgumentException("Roll Number (" + enrollmentNumber + ") is out of range [1..]");
+        }
+    }
+    
+    /**
+     * Validates enrollment date.
+     */
+    private void validateEnrollmentDate() {
+        if (enrollmentDate.isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("Enrollment Date (" + enrollmentDate + ") is out of range [.." + LocalDate.now() + "]");
+        }
+    }
     
     /**
      * Informs if the student is enrolled or not.
@@ -64,17 +80,17 @@ public class Student extends Person {
      * 
      * @return student's enrollment number
      */
-    public int getRollNumber() {
-        return rollNumber;
+    public int getEnrollmentNumber() {
+        return enrollmentNumber;
     }
     
     /**
      * Setter.
      * 
-     * @param rollNumber student's enrollment number
+     * @param enrollmentNumber student's enrollment number
      */
-    public void setRollNumber(int rollNumber) {
-        this.rollNumber = rollNumber;
+    public void setEnrollmentNumber(int enrollmentNumber) {
+        this.enrollmentNumber = enrollmentNumber;
     }
     
     /**

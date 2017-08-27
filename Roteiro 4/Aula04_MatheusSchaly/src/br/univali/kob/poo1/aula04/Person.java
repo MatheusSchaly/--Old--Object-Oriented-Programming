@@ -22,6 +22,8 @@ public abstract class Person {
      */
     private LocalDate dateOfBirth;
     
+    
+    
     /**
      * Person's constructor to be reutilized by its subclasses.
      * Name and birth date are required.
@@ -30,8 +32,35 @@ public abstract class Person {
      * @param dateOfBirth person's date of birth
      */
     public Person(String name, LocalDate dateOfBirth) {
-        setName(name);
-        setDateOfBirth(dateOfBirth);
+        this.name = name;
+        this.dateOfBirth = dateOfBirth;
+        validateState();
+    }
+    
+    /**
+     * Validates Person state.
+     */
+    private void validateState() {
+        validateName();
+        validateDateOfBirth();
+    }
+    
+    /**
+     * Validates name.
+     */
+    private void validateName() {
+        if (name.equals("")) {
+            throw new IllegalArgumentException("Name is empty");
+        }
+    }
+    
+    /**
+     * Validates date of birth.
+     */
+    private void validateDateOfBirth() {
+        if (dateOfBirth.isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("Hire date (" + dateOfBirth + ") is out of range [.." + LocalDate.now() + "]");
+        }
     }
 
     /**

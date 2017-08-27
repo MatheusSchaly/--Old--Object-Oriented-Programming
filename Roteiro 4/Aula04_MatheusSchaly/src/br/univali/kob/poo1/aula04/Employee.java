@@ -9,62 +9,7 @@ import java.time.Period;
  */
 
 public class Employee extends Person {
-
-    /**
-     * Telescoping pettern.
-     * 
-     * @param id employee's identification number
-     * @param name employee's name
-     * @param dateOfBirth employee's birth date
-     */
-    public Employee(int id, String name, LocalDate dateOfBirth) {
-        super(name, dateOfBirth);
-        setId(id);
-        setTerminationDate(null);
-    }
     
-    /**
-     * Telescoping pettern.
-     * 
-     * @param id employee's identification number
-     * @param name employee's name
-     * @param dateOfBirth employee's birth date
-     * @param hireDate employee's Hiring date
-     */
-    public Employee(int id, String name, LocalDate dateOfBirth, LocalDate hireDate) {
-        this(id, name, dateOfBirth);
-        setHireDate(hireDate);
-    }
-    
-    /**
-     * Telescoping pettern.
-     * 
-     * @param id employee's identification number
-     * @param name employee's name
-     * @param dateOfBirth employee's birth date
-     * @param hireDate employee's Hiring date
-     * @param hoursPerWorkWeek employees's working hours per week
-     */
-    public Employee(int id, String name, LocalDate dateOfBirth, LocalDate hireDate, int hoursPerWorkWeek) {
-        this(id, name, dateOfBirth, hireDate);
-        setHoursPerWorkWeek(hoursPerWorkWeek);
-    }
-    
-    /**
-     * Telescoping pettern.
-     * 
-     * @param id employee's identification number
-     * @param name employee's name
-     * @param dateOfBirth employee's birth date
-     * @param hireDate employee's Hiring date
-     * @param hoursPerWorkWeek employees's working hours per week
-     * @param hourlyRate employees's hourly payment rate
-     */
-    public Employee(int id, String name, LocalDate dateOfBirth, LocalDate hireDate, int hoursPerWorkWeek, BigDecimal hourlyRate) {
-        this(id, name, dateOfBirth, hireDate, hoursPerWorkWeek);
-        setHourlyRate(hourlyRate);
-    }
-
     /**
      * Employee's identification number.
      */
@@ -89,6 +34,73 @@ public class Employee extends Person {
      * Employees's hourly payment rate.
      */
     private BigDecimal hourlyRate;
+    
+    
+    
+    /**
+     * Constructor.
+     * @param id employee's identification number
+     * @param name employee's name
+     * @param dateOfBirth employee's birth date
+     * @param hireDate employee's Hiring date
+     * @param hoursPerWorkWeek employees's working hours per week
+     * @param hourlyRate employees's hourly payment rate
+     */
+    public Employee(int id, String name, LocalDate dateOfBirth, LocalDate hireDate, int hoursPerWorkWeek, BigDecimal hourlyRate) {
+        super(name, dateOfBirth);
+        this.id = id;
+        this.terminationDate = null;
+        this.hireDate = hireDate;
+        this.hoursPerWorkWeek = hoursPerWorkWeek;
+        this.hourlyRate = hourlyRate;
+        validateState();
+    }
+    
+    /**
+     * Validates Professor state.
+     */
+    private void validateState() {
+        validateId();
+        validateHoursPerWorkWeek();
+        validateHourlyRate();
+        validateHireDate();
+    }
+    
+    /**
+     * Validates id.
+     */
+    private void validateId() {
+        if (id < 0) {
+            throw new IllegalArgumentException("Id (" + id + ") is out of range [1..]");
+        }
+    }
+    
+    /**
+     * Validates hire date.
+     */
+    private void validateHireDate() {
+        if (hireDate.isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("Hire Date (" + hireDate + ") is out of range [.." + LocalDate.now() + "]");
+        }
+    }
+    
+    /**
+     * Validates hours per work week.
+     */
+    private void validateHoursPerWorkWeek() {
+        if (hoursPerWorkWeek < 1 || hoursPerWorkWeek > 40) {
+            throw new IllegalArgumentException("Hours per Work Week (" + hoursPerWorkWeek + ") is out of range [1..40]");
+        }
+    }
+    
+    /**
+     * Validates hourly rate.
+     */
+    private void validateHourlyRate() {
+        if (hourlyRate.compareTo(new BigDecimal("0.0")) < 0) {
+            throw new IllegalArgumentException("Hourly Rate (" + hourlyRate + ") is out of range [0.0..]");
+        }
+    }
 
     /**
      * Informs if the employee is employed or not.
@@ -152,6 +164,7 @@ public class Employee extends Person {
      */
     public void setId(int id) {
         this.id = id;
+        validateId();
     }
 
     /**
@@ -206,6 +219,7 @@ public class Employee extends Person {
      */
     public void setHoursPerWorkWeek(int hoursPerWorkWeek) {
         this.hoursPerWorkWeek = hoursPerWorkWeek;
+        validateHoursPerWorkWeek();
     }
 
     /**

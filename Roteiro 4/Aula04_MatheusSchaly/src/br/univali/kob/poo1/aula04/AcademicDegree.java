@@ -16,6 +16,8 @@ public enum AcademicDegree {
     MASTER ("Master", "0.15"),
     DOCTORATE ("Doctorate (PhD)" , "0.30");
     
+    
+    
     /**
      * Text that describes each of enum items.
      */

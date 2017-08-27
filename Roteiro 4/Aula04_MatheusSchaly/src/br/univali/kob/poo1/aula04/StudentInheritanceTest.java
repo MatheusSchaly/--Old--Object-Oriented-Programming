@@ -15,8 +15,8 @@ public class StudentInheritanceTest {
      */
     private void createSubclassStudent() {
         System.out.println("test case: createSubclassStudent");
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        Student student = new Student(1, "John", LocalDate.parse("22/04/1997", format), LocalDate.parse("27/02/2017", format));
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        Student student = new Student(1, "John", LocalDate.parse("1994/04/22", format), LocalDate.parse("2017/02/27", format));
 
         StringBuilder output = new StringBuilder();
         output.append("[Student] name: %s; ");
@@ -31,7 +31,7 @@ public class StudentInheritanceTest {
             student.getName(), 
             student.getDateOfBirth().format(format),
             student.getAge(),
-            student.getRollNumber(), 
+            student.getEnrollmentNumber(), 
             student.isEnrolled(),
             student.getEnrollmentDate().format(format),
             (student.getDropDate() == null) ? null : student.getDropDate().format(format));
@@ -50,8 +50,8 @@ public class StudentInheritanceTest {
      */
     private void tryAccessToSuperAttributes() {
         System.out.println("test case: tryAccessToSuperAttributes");
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        Student student = new Student(1, "John", LocalDate.parse("22/04/1997", format), LocalDate.parse("27/02/2017", format));
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        Student student = new Student(1, "John", LocalDate.parse("1994/04/22", format), LocalDate.parse("2017/02/27", format));
         // Experimente tirar os comentários das próximas linhas e
         // verificar o que acontece. Leia o erro retornado.
         //student.name = "John";

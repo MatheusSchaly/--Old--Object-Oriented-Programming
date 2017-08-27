@@ -15,7 +15,14 @@ public class Aula04 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        StudentInheritanceTest studentTest = new StudentInheritanceTest();
+        studentTest.run();
+        EmployeeInheritanceTest employeeTest = new EmployeeInheritanceTest();
+        employeeTest.run();
+        PersonListTest personListTest = new PersonListTest();
+        personListTest.run();
+        ProfessorInheritanceTest professorTest = new ProfessorInheritanceTest();
+        professorTest.run();
     }
     
 }

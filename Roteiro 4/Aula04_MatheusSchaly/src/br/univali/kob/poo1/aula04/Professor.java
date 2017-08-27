@@ -7,6 +7,7 @@ package br.univali.kob.poo1.aula04;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 /**
  *
@@ -15,8 +16,14 @@ import java.time.LocalDate;
 public class Professor extends Employee {
     
     /**
-     * Telescoping pettern.
-     * 
+     * Professor's academic degree.
+     */
+    private AcademicDegree academicDegree;
+    
+    
+    
+    /**
+     * Constructor.
      * @param id employee's identification number
      * @param name employee's name
      * @param dateOfBirth employee's birth date
@@ -27,13 +34,28 @@ public class Professor extends Employee {
      */
     public Professor(int id, String name, LocalDate dateOfBirth, LocalDate hireDate, int hoursPerWorkWeek, BigDecimal hourlyRate, AcademicDegree academicDegree) {
         super(id, name, dateOfBirth, hireDate, hoursPerWorkWeek, hourlyRate);
-        setAcademicDegree(academicDegree);
+        this.academicDegree = academicDegree;
+        validateState();
     }
     
     /**
-     * Professor's academic degree.
+     * Validates Professor state.
      */
-    private AcademicDegree academicDegree;
+    private void validateState() {
+        validateAcademicDegree();
+    }
+    
+    /**
+     * Validates academic degree.
+     */
+    private void validateAcademicDegree() {
+        for (AcademicDegree academicD: AcademicDegree.values()) {
+            if (academicD == academicDegree) {
+                return;
+            }
+        }
+        throw new IllegalArgumentException("Academic Degree (" + academicDegree + ") is invalid [" + Arrays.toString(AcademicDegree.values()) + "]");
+    }
     
     /**
      * Getter.
