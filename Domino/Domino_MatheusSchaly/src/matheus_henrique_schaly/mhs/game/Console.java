@@ -34,7 +34,7 @@ public class Console {
     }
     
     public static boolean askYesNo(String question) {
-        System.out.println(question);
+        System.out.println(question + "(y/n)");
         String answer;
         do {
             answer = input.next();

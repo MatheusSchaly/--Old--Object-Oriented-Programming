@@ -52,4 +52,9 @@ public class Tile {
         return totalValue;
     }
     
+    @Override
+    public String toString() {
+        return "[" + getLeftValue() + "," + getRightValue() + "]";
+    }
+    
 }

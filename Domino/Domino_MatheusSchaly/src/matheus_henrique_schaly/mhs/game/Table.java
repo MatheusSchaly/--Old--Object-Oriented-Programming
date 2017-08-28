@@ -66,7 +66,7 @@ public class Table {
      * @return Tile chain's right most tile
      */
     public Tile getChainRightTile() {
-        return getTilesChain().get(getTilesChain().size());
+        return getTilesChain().get(getTilesChain().size() - 1);
     }
 
     /**

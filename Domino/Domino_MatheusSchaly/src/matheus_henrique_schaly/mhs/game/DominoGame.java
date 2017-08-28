@@ -1,5 +1,7 @@
 package matheus_henrique_schaly.mhs.game;
 
+import java.io.IOException;
+import java.nio.channels.InterruptedByTimeoutException;
 import java.util.*;
 
 /**
@@ -59,6 +61,7 @@ public final class DominoGame {
         createBots(numBots);
         getPlayers().add(new Player(name));
         numPlayers = numBots + 1;
+        getPlayers().get(numPlayers - 1).setIsUser(true);
         setPlayersHand();
         playFirstTile();
     }
@@ -190,8 +193,15 @@ public final class DominoGame {
     
     /**
      * Draws a tile for the player, remove a tile from boneyard.
+     * @throws java.io.IOException
      */
-    public void drawPlayerTile() {
+    public void drawPlayerTile() throws IOException {
+        for (int i = 0; i < getCurrentPlayer().getHand().size(); i++) {
+            if (getTable().getChainLeftTile().getLeftValue() != getCurrentPlayer().getHand().get(i).getRightValue() &&
+                    getTable().getChainRightTile().getRightValue() != getCurrentPlayer().getHand().get(i).getLeftValue()) {
+                throw new IOException();
+            }
+        }
         Tile drewTile = getTable().drawBoneyardTile();
         getCurrentPlayer().drawTile(drewTile);
     }
@@ -199,18 +209,35 @@ public final class DominoGame {
     /**
      * Plays a tile for the player, add a tile to tile chain.
      * @param tileIndex 
+     * @throws java.io.IOException 
      */
-    public void playPlayerTile(int tileIndex) {
+    public void playPlayerTile(int tileIndex) throws IOException {
+        if (getTable().getChainLeftTile().getLeftValue() != getCurrentPlayer().getHand().get(tileIndex).getRightValue() &&
+                getTable().getChainRightTile().getRightValue() != getCurrentPlayer().getHand().get(tileIndex).getLeftValue()) {
+            throw new IOException();
+        }
         Tile playerPlayedTile = getCurrentPlayer().playTile(tileIndex);
         if (!getTable().addChainRightTile(playerPlayedTile)) {
             getTable().addChainLeftTile(playerPlayedTile);
         }
+        passPlayerTurn();
     }
     
     /**
      * Passes player turn.
+     * @throws java.io.IOException
+     * @throws java.nio.channels.InterruptedByTimeoutException
      */
-    public void passPlayerTurn() {
+    public void passPlayerTurn() throws IOException, InterruptedByTimeoutException {
+        for (int i = 0; i < getCurrentPlayer().getHand().size(); i++) {
+            if (getTable().getChainLeftTile().getLeftValue() != getCurrentPlayer().getHand().get(i).getRightValue() &&
+                    getTable().getChainRightTile().getRightValue() != getCurrentPlayer().getHand().get(i).getLeftValue()) {
+                throw new IOException();
+            }
+        }
+        if (getTable().getBoneyard().isEmpty()) {
+            throw new InterruptedByTimeoutException();
+        }
         if (getPlayerArrayIndex() == getPlayers().size() - 1) {
             setCurrentPlayer(getPlayers().get(0));
         }
@@ -251,6 +278,10 @@ public final class DominoGame {
         this.table = table;
     }
     
+    /**
+     * Getter
+     * @return players 
+     */
     public ArrayList<Player> getPlayers() {
         return players;
     }
