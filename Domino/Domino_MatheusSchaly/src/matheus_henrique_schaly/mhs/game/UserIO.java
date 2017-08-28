@@ -16,11 +16,19 @@ public class UserIO {
      * Runs UserIO.
      */
     public void run() {
-        String userIsPlayer = Console.readString("Do you want to play?");
-        String userName = Console.readString("Enter your name:");
-        int numBots = Console.readInt("Number of bots: ");
-        setDominoGame(new DominoGame(numBots, userName));
-        setDominoGame(new DominoGame(numBots));
+        int numBots;
+        boolean userIsPlayer = false;
+        numBots = Console.readIntInterval("Choose number of bots: ", 1, 4);
+        if (numBots != 4) {
+            userIsPlayer = Console.askYesNo("Do you want to be a player? (y/n)");
+        }
+        if (userIsPlayer) {
+            String userName = Console.readString("Enter your name:");
+            setDominoGame(new DominoGame(numBots, userName));
+        }
+        else {
+            setDominoGame(new DominoGame(numBots));
+        }
         playOneTurn();
     }
 
@@ -35,7 +43,7 @@ public class UserIO {
                 printCurrentTurn();
             }
             else {
-                // CONTINUE HERE, MAKE AN AI
+                // AI COMES HERE
             }
         } while (false); // winner
     }
@@ -64,14 +72,27 @@ public class UserIO {
      * Prints user menu.
      */
     public void promptUser() {
-        int userOption = Console.readInt("Choose:\n"
-                + "1 - Play a tile.\n"
-                + "2 -Draw a tile.\n"
-                + "3 - Pass.\n");
+        int userOption;
+        do {
+            userOption = Console.readIntInterval("Choose:\n"
+                    + "1 - Play a tile.\n"
+                    + "2 -Draw a tile.\n"
+                    + "3 - Pass.\n", 1, 3);
+        } while (userOption < 1 || userOption > 3);
         switch (userOption) {
             case 1:
-                int tilePosition = Console.readInt("Which tile do you want to play?");
-                getDominoGame().playPlayerTile(tilePosition);
+                boolean validTile = false;
+                int tileIndex;
+                do { // CONTINUE HERE, MAKE A CHAINED EXCEPTIONS OR NOT ??
+                    tileIndex = Console.readIntInterval("Which tile do you want to play?", 1, getDominoGame().getCurrentPlayer().getHand().size());
+                    if (getDominoGame().getTable().getChainLeftTile().getLeftValue() == getDominoGame().getCurrentPlayer().getHand().get(tileIndex).getRightValue()) {
+                        validTile = true;
+                    }
+                    else if (getDominoGame().getTable().getChainRightTile().getRightValue() == getDominoGame().getCurrentPlayer().getHand().get(tileIndex).getLeftValue()) {
+                        validTile = true;
+                    }
+                } while (!validTile);
+                getDominoGame().playPlayerTile(tileIndex - 1);
                 break;
             case 2:
                 getDominoGame().drawPlayerTile();

@@ -17,7 +17,6 @@ public class Tile {
     
     
     
-    
     /**
      * Tile value's constructor.
      * @param leftValue

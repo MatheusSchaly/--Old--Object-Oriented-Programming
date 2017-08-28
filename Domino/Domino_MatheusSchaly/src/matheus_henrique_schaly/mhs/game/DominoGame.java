@@ -198,10 +198,10 @@ public final class DominoGame {
     
     /**
      * Plays a tile for the player, add a tile to tile chain.
-     * @param tilePosition 
+     * @param tileIndex 
      */
-    public void playPlayerTile(int tilePosition) {
-        Tile playerPlayedTile = getCurrentPlayer().playTile(tilePosition);
+    public void playPlayerTile(int tileIndex) {
+        Tile playerPlayedTile = getCurrentPlayer().playTile(tileIndex);
         if (!getTable().addChainRightTile(playerPlayedTile)) {
             getTable().addChainLeftTile(playerPlayedTile);
         }

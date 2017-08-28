@@ -1,6 +1,7 @@
 package matheus_henrique_schaly.mhs.game;
 
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 /**
  *
@@ -8,16 +9,42 @@ import java.util.Scanner;
  */
 public class Console {
     
-    public static String readString (String question) {
+    private final static Scanner input = new Scanner(System.in);
+    
+    public static String readString(String question) {
         System.out.println(question);
-        Scanner input = new Scanner(System.in);
         return input.next();
     }
     
-    public static int readInt (String question) {
+    public static int readIntInterval(String question, int min, int max) {
+        boolean validAnswer; 
+        int answer = 0;
+        do {
+            try {
+                System.out.println(question + "(" + min + " to " + max + ")");
+                answer = input.nextInt();
+                validAnswer = true;
+            } catch (InputMismatchException e) {
+                input.nextLine();
+                System.out.println("You must enter a number.");
+                validAnswer = false;
+            }
+        } while (!validAnswer || (answer < min || answer > max));
+        return answer;
+    }
+    
+    public static boolean askYesNo(String question) {
         System.out.println(question);
-        Scanner input = new Scanner(System.in);
-        return input.nextInt();
+        String answer;
+        do {
+            answer = input.next();
+            if (answer.equals("y")) {
+                return true;
+            }
+            else if (answer.equals("n")) {
+                return false;
+            }
+        } while (true);
     }
     
 }
