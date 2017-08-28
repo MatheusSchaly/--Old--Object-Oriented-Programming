@@ -166,7 +166,7 @@ public final class DominoGame {
                         playedTile = getPlayers().get(j).playTile(k);  
                         getTable().chainFirstTile(playedTile);
                         setCurrentPlayer(getPlayers().get(j));
-                        setPlayerArrayIndex(k);
+                        setPlayerArrayIndex(j);
                         return;
                     }
                 }
@@ -189,6 +189,7 @@ public final class DominoGame {
                 }
             }
         }
+        getTable().addRound();
     }
     
     /**
@@ -197,8 +198,8 @@ public final class DominoGame {
      */
     public void drawPlayerTile() throws IOException {
         for (int i = 0; i < getCurrentPlayer().getHand().size(); i++) {
-            if (getTable().getChainLeftTile().getLeftValue() != getCurrentPlayer().getHand().get(i).getRightValue() &&
-                    getTable().getChainRightTile().getRightValue() != getCurrentPlayer().getHand().get(i).getLeftValue()) {
+            if (getTable().getChainLeftTile().getLeftValue() == getCurrentPlayer().getHand().get(i).getRightValue() ||
+                    getTable().getChainRightTile().getRightValue() == getCurrentPlayer().getHand().get(i).getLeftValue()) {
                 throw new IOException();
             }
         }
@@ -220,7 +221,6 @@ public final class DominoGame {
         if (!getTable().addChainRightTile(playerPlayedTile)) {
             getTable().addChainLeftTile(playerPlayedTile);
         }
-        passPlayerTurn();
     }
     
     /**
@@ -228,16 +228,20 @@ public final class DominoGame {
      * @throws java.io.IOException
      * @throws java.nio.channels.InterruptedByTimeoutException
      */
-    public void passPlayerTurn() throws IOException, InterruptedByTimeoutException {
+    public void checkIfPlayerCanPass() throws IOException, InterruptedByTimeoutException {
         for (int i = 0; i < getCurrentPlayer().getHand().size(); i++) {
-            if (getTable().getChainLeftTile().getLeftValue() != getCurrentPlayer().getHand().get(i).getRightValue() &&
-                    getTable().getChainRightTile().getRightValue() != getCurrentPlayer().getHand().get(i).getLeftValue()) {
+            if (getTable().getChainLeftTile().getLeftValue() == getCurrentPlayer().getHand().get(i).getRightValue() ||
+                    getTable().getChainRightTile().getRightValue() == getCurrentPlayer().getHand().get(i).getLeftValue()) {
                 throw new IOException();
             }
         }
-        if (getTable().getBoneyard().isEmpty()) {
+        if (!getTable().getBoneyard().isEmpty()) {
             throw new InterruptedByTimeoutException();
         }
+        passPlayerTurn();
+    }
+    
+    public void passPlayerTurn() {
         if (getPlayerArrayIndex() == getPlayers().size() - 1) {
             setCurrentPlayer(getPlayers().get(0));
         }

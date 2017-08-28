@@ -20,11 +20,13 @@ public class UserIO {
      */
     public void run() {
         int numBots;
-        boolean userIsPlayer = false;
-        numBots = Console.readIntInterval("Choose number of bots: ", 1, 4);
-        if (numBots != 4) {
-            userIsPlayer = Console.askYesNo("Do you want to be a player? ");
+        int maxBots = 4;
+        boolean userIsPlayer;
+        userIsPlayer = Console.askYesNo("Do you want to be a player? ");
+        if (userIsPlayer) {
+            maxBots--;
         }
+        numBots = Console.readIntInterval("Choose number of bots: ", 1, maxBots);
         if (userIsPlayer) {
             String userName = Console.readString("Enter your name:");
             setDominoGame(new DominoGame(numBots, userName));
@@ -34,23 +36,7 @@ public class UserIO {
         }
         playOneTurn();
     }
-
-    /**
-     * Prompts player for action.
-     */
-    private void playOneTurn() {
-        do {
-            if (getDominoGame().getCurrentPlayer().getIsUser()) {
-                printPlayerStatus();
-                printCurrentTurn();
-                promptUser();
-            }
-            else {
-                // AI COMES HERE
-            }
-        } while (false); // winner
-    }
-
+    
     /**
      * Prints player's current status.
      */
@@ -70,20 +56,80 @@ public class UserIO {
         System.out.println("Used\t: " + getDominoGame().getCurrentPlayer().getPlayedTile());
         System.out.println("Table\t: " + getDominoGame().getTable().getTilesChain() + "\n");
     }
+
+    /**
+     * Prompts player for action.
+     */
+    private void playOneTurn() {
+        do {
+            if (getDominoGame().getCurrentPlayer().getIsUser()) {
+                printPlayerStatus();
+                printCurrentTurn();
+                promptUser();
+            }
+            else {
+                playAI(); 
+                printCurrentTurn();
+            }
+        } while (false); // winner
+    }
     
+    private void playAI() {
+        boolean aiPlayed = false;
+        do {
+            aiPlayed = playAiTile();
+            if (aiPlayed) {
+                break;
+            }
+            aiPlayed = drawAiTile();
+            if (aiPlayed) {
+                break;
+            }
+        } while (getDominoGame().getTable().getBoneyard().isEmpty());
+        try {
+            getDominoGame().checkIfPlayerCanPass();
+        } catch (Exception e) {
+            
+        }
+        
+    }
+    
+    private boolean drawAiTile() {
+        try {
+            getDominoGame().drawPlayerTile();
+        } 
+        catch (IOException e) {
+            return false;
+        }
+        getDominoGame().getCurrentPlayer().getDrewTiles();
+        return true;
+    }
+    
+    private boolean playAiTile() {
+        int i = 0;
+        do {
+            try {
+                getDominoGame().playPlayerTile(i);
+                return true;
+            } catch (IOException e) {
+                i++;
+            }
+        } while (i < getDominoGame().getCurrentPlayer().getHand().size());
+        return false;
+    }
+  
     /**
      * Prints user menu.
      */
     private void promptUser() {
         int userOption;
         boolean userPlayed = false;
+        boolean playerPassed = false;
         do {
-            do {
-                userOption = Console.readIntInterval("Choose:\n"
-                        + "1 - Play a tile.\n"
-                        + "2 - Draw a tile.\n"
-                        + "3 - Pass.\n", 1, 3);
-            } while (userOption < 1 || userOption > 3);
+            userOption = Console.readIntInterval("Choose:\n"
+                    + "1 - Play a tile.\n"
+                    + "2 - Draw a tile.\n"
+                    + "3 - Pass.\n", 1, 3);
             switch (userOption) {
                 case 1:
                     userPlayed = playingTile();
@@ -93,12 +139,18 @@ public class UserIO {
                     break;
                 case 3:
                     userPlayed = passTurn();
+                    if (userPlayed) {
+                        playerPassed = true;
+                    }
                     break;
             }
         } while (!userPlayed);
+        if (!playerPassed) {
+            getDominoGame().passPlayerTurn();
+        }
     }
     
-    private boolean playingTile() { // Not chain exceptions below
+    private boolean playingTile() { // Not chained exceptions below
         int tilePosition;
         do {
             try {
@@ -123,21 +175,21 @@ public class UserIO {
             System.out.println("You can only draw a tile if you do not have any tile to be played, go check it.");
             return false;
         }
-        System.out.println("The tiles that you've already drawn are:");
+        System.out.println("The tiles that you've already drewn are:");
         getDominoGame().getCurrentPlayer().getDrewTiles();
         return true;
     }
     
     private boolean passTurn() {
         try {
-            getDominoGame().passPlayerTurn();
+            getDominoGame().checkIfPlayerCanPass();
         }
         catch (InterruptedByTimeoutException e) {
             System.out.println("You could pass if the boneyard was empty, go check it");
             return false;
         }
         catch (IOException e) {
-            System.out.println("You could pass if you did not have a tile to play, go check it");
+            System.out.println("You could pass if you had not a tile to play, go check it");
             return false;
         }
         return true;
