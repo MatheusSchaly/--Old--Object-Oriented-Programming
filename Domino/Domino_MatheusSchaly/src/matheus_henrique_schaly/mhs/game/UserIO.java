@@ -10,6 +10,9 @@ public class UserIO {
      */
     private DominoGame dominoGame;
     
+    // FIX PREVIOUS PLAYER OUTPUT
+    // FIX WINNER RELATED TO POINTS
+    // FIX CLEARDREWTILES
     
     
     /**
@@ -31,6 +34,10 @@ public class UserIO {
         else {
             setDominoGame(new DominoGame(numBots));
         }
+        getDominoGame().playFirstTile();
+        printEndTurn();
+        getDominoGame().moveToNextPlayer();
+        getDominoGame().getTable().addRound();
         play();
     }
     
@@ -39,13 +46,14 @@ public class UserIO {
      */
     private void printPlayerStatus() {
         System.out.println(getDominoGame().getCurrentPlayer().getName() + " it is your turn.");
-        System.out.println("Your hand: " + getDominoGame().getCurrentPlayer().getHand() + "\n");
+        System.out.println("Your hand : " + getDominoGame().getCurrentPlayer().getHand());
+        System.out.println("Table     : " + getDominoGame().getTable().getTilesChain() + "\n");
     }
 
     /**
      * Prints current turn.
      */
-    private void printCurrentTurn() {
+    private void printEndTurn() {
         System.out.println("Round\t: " + getDominoGame().getTable().getRound());
         System.out.println("Player\t: " + getDominoGame().getCurrentPlayer().getName());
         System.out.println("Hand\t: " + getDominoGame().getCurrentPlayer().getHand());
@@ -62,14 +70,15 @@ public class UserIO {
         do {
             if (getDominoGame().getCurrentPlayer().getIsUser()) {
                 printPlayerStatus();
-                printCurrentTurn();
                 playUser();
+                printEndTurn();
             }
             else {
                 playAI();
-                printCurrentTurn();
+                printEndTurn();
             }
             winner = getDominoGame().searchWinner();
+            getDominoGame().getCurrentPlayer().clearDrewTiles();
         } while (winner == null);
         System.out.println(winner.getName() + " is the winner.");
     }
@@ -78,16 +87,18 @@ public class UserIO {
      * AI plays
      */
     private void playAI() {
-        for (int tileIndex = 0; tileIndex < getDominoGame().getCurrentPlayer().getHand().size(); tileIndex++) {
-            if (getDominoGame().playPlayerTile(tileIndex));
+        do {
+            for (int tileIndex = 0; tileIndex < getDominoGame().getCurrentPlayer().getHand().size(); tileIndex++) {
+                if (getDominoGame().playPlayerTile(tileIndex)) {
+                    return;
+                }
+            }
+
+            if (!getDominoGame().drawPlayerTile()) {
+                getDominoGame().passPlayer();
                 return;
-        }
-        
-        if (getDominoGame().drawPlayerTile()) {
-            return;
-        }
-        
-        getDominoGame().passPlayer();
+            }  
+        } while (true);
     }
 
   

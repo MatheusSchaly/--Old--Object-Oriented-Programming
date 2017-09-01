@@ -163,12 +163,15 @@ public class Player {
         setPlayedTile(playerPlayedTile);
         return playerPlayedTile;
     }
+    
+    public void clearDrewTiles() {
+        getDrewTiles().clear();
+    }
 
     /**
      * Getter.
      * @return
      */
-    
     public ArrayList getDrewTiles() {
         return drewTiles;
     }
