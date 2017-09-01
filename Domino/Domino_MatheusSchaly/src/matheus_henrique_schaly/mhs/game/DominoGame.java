@@ -1,7 +1,5 @@
 package matheus_henrique_schaly.mhs.game;
 
-import java.io.IOException;
-import java.nio.channels.InterruptedByTimeoutException;
 import java.util.*;
 
 /**
@@ -193,62 +191,121 @@ public final class DominoGame {
     }
     
     /**
-     * Draws a tile for the player, remove a tile from boneyard.
-     * @throws java.io.IOException
-     */
-    public void drawPlayerTile() throws IOException {
-        for (int i = 0; i < getCurrentPlayer().getHand().size(); i++) {
-            if (getTable().getChainLeftTile().getLeftValue() == getCurrentPlayer().getHand().get(i).getRightValue() ||
-                    getTable().getChainRightTile().getRightValue() == getCurrentPlayer().getHand().get(i).getLeftValue()) {
-                throw new IOException();
-            }
-        }
-        Tile drewTile = getTable().drawBoneyardTile();
-        getCurrentPlayer().drawTile(drewTile);
-    }
-    
-    /**
      * Plays a tile for the player, add a tile to tile chain.
      * @param tileIndex 
-     * @throws java.io.IOException 
+     * @return tile played or not
      */
-    public void playPlayerTile(int tileIndex) throws IOException {
-        if (getTable().getChainLeftTile().getLeftValue() != getCurrentPlayer().getHand().get(tileIndex).getRightValue() &&
-                getTable().getChainRightTile().getRightValue() != getCurrentPlayer().getHand().get(tileIndex).getLeftValue()) {
-            throw new IOException();
+    public boolean playPlayerTile(int tileIndex) {      
+        if (checkPlayedTile(tileIndex)) {
+            Tile playerPlayedTile = getCurrentPlayer().playTile(tileIndex);
+            if (!getTable().addChainRightTile(playerPlayedTile)) {
+                getTable().addChainLeftTile(playerPlayedTile);
+            }
+            return true;
         }
-        Tile playerPlayedTile = getCurrentPlayer().playTile(tileIndex);
-        if (!getTable().addChainRightTile(playerPlayedTile)) {
-            getTable().addChainLeftTile(playerPlayedTile);
-        }
+        
+        return false;
     }
+    
+    private boolean checkPlayedTile(int tileIndex) {
+        for (int i = 0; i < 2; i++) {
+            if (getTable().getChainLeftTile().getLeftValue() == getCurrentPlayer().getHand().get(tileIndex).getRightValue() ||
+                    getTable().getChainRightTile().getRightValue() == getCurrentPlayer().getHand().get(tileIndex).getLeftValue()) {
+                return true;
+            }
+            getCurrentPlayer().getHand().get(tileIndex).tileFlip();
+        }
+        
+        return false;
+    }
+    
+    
+    /**
+     * Draws a tile for the player, remove a tile from boneyard.
+     * @return bool
+     */
+    public boolean drawPlayerTile() {
+        if (checkDrawTile()) {
+            Tile drewTile = getTable().drawBoneyardTile();
+            getCurrentPlayer().drawTile(drewTile);
+            return true;
+        }
+        
+        return false;
+    }
+    
+    private boolean checkDrawTile() {
+        if (getTable().getBoneyard().isEmpty()) {
+            return false;
+        }
+
+        for (int i = 0; i < getCurrentPlayer().getHand().size(); i++) {
+            if (checkPlayedTile(i)) {
+                return false;
+            }
+        }
+        
+        return true;
+    } 
+    
     
     /**
      * Passes player turn.
-     * @throws java.io.IOException
-     * @throws java.nio.channels.InterruptedByTimeoutException
+     * @return 
      */
-    public void checkIfPlayerCanPass() throws IOException, InterruptedByTimeoutException {
-        for (int i = 0; i < getCurrentPlayer().getHand().size(); i++) {
-            if (getTable().getChainLeftTile().getLeftValue() == getCurrentPlayer().getHand().get(i).getRightValue() ||
-                    getTable().getChainRightTile().getRightValue() == getCurrentPlayer().getHand().get(i).getLeftValue()) {
-                throw new IOException();
+    public boolean passPlayer() {
+        if (checkPass()) {
+            getCurrentPlayer().setPassed(true);
+            if (getPlayerArrayIndex() == getPlayers().size() - 1) {
+                setCurrentPlayer(getPlayers().get(0));
             }
+            else {
+                setCurrentPlayer(getPlayers().get(getPlayerArrayIndex() + 1));
+            }
+            return true;
         }
-        if (!getTable().getBoneyard().isEmpty()) {
-            throw new InterruptedByTimeoutException();
-        }
-        passPlayerTurn();
+        return false;        
     }
     
-    public void passPlayerTurn() {
-        if (getPlayerArrayIndex() == getPlayers().size() - 1) {
-            setCurrentPlayer(getPlayers().get(0));
+    private boolean checkPass() {
+        if (getTable().getBoneyard().isEmpty()) {
+            return false;
         }
-        else {
-            setCurrentPlayer(getPlayers().get(getPlayerArrayIndex() + 1));
+
+        for (int i = 0; i < getCurrentPlayer().getHand().size(); i++) {
+            if (checkPlayedTile(i)) {
+                return false;
+            }
         }
+        
+        return true;
+    } 
+    
+    public Player searchWinner() {
+        if (getCurrentPlayer().getHand().isEmpty()) {
+            return getCurrentPlayer();
+        }
+        
+        for (int playerIndex = 0; playerIndex < getNumPlayers(); playerIndex++) {
+            if (!getPlayers().get(playerIndex).getPassed()) {
+                return null;
+            }
+        }
+        
+        ArrayList<Integer> playerPoints = new ArrayList(getNumPlayers());
+        for (int playerIndex = 0; playerIndex < getNumPlayers(); playerIndex++) {
+            playerPoints.add(getPlayers().get(playerIndex).calculatePoints());
+        }
+        
+        for (int playerIndex = 0; playerIndex < getNumPlayers(); playerIndex++) {
+            if (getPlayers().get(playerIndex).getPoints() == Collections.max(playerPoints)) {
+                return getPlayers().get(playerIndex);
+            }
+        }
+        
+        return null;
     }
+    
 
     /**
      * Getter.

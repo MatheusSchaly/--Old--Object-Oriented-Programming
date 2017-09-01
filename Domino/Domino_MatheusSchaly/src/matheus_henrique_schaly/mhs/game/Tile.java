@@ -45,12 +45,39 @@ public class Tile {
     }
     
     /**
+     * Setter.
+     * @param leftValue Tile's left value 
+     */
+    public void setLeftValue(int leftValue) {
+        value[0] = leftValue;
+    }
+    
+    
+    /**
+     * Setter.
+     * @param rightValue Tile's right value 
+     */
+    public void setRightValue(int rightValue) {
+        value[1] = rightValue;
+    }
+    
+    /**
      * Getter.
      * @return totalValue
      */
     public int getTotalValue() {
         return totalValue;
     }
+    
+    /**
+     * Flips the tile's values
+     */
+    public void tileFlip() {
+        int aux = getLeftValue();
+        setLeftValue(getRightValue());
+        setRightValue(aux);
+    }
+
     
     @Override
     public String toString() {

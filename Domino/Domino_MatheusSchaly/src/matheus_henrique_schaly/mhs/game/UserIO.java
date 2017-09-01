@@ -1,8 +1,5 @@
 package matheus_henrique_schaly.mhs.game;
 
-import java.io.IOException;
-import java.nio.channels.InterruptedByTimeoutException;
-
 /**
  * User input output.
  */
@@ -34,7 +31,7 @@ public class UserIO {
         else {
             setDominoGame(new DominoGame(numBots));
         }
-        playOneTurn();
+        play();
     }
     
     /**
@@ -60,146 +57,83 @@ public class UserIO {
     /**
      * Prompts player for action.
      */
-    private void playOneTurn() {
+    private void play() {
+        Player winner = null;
         do {
             if (getDominoGame().getCurrentPlayer().getIsUser()) {
                 printPlayerStatus();
                 printCurrentTurn();
-                promptUser();
+                playUser();
             }
             else {
-                playAI(); 
+                playAI();
                 printCurrentTurn();
             }
-        } while (false); // winner
+            winner = getDominoGame().searchWinner();
+        } while (winner == null);
+        System.out.println(winner.getName() + " is the winner.");
     }
     
+    /**
+     * AI plays
+     */
     private void playAI() {
-        boolean aiPlayed = false;
-        do {
-            aiPlayed = playAiTile();
-            if (aiPlayed) {
-                break;
-            }
-            aiPlayed = drawAiTile();
-            if (aiPlayed) {
-                break;
-            }
-        } while (getDominoGame().getTable().getBoneyard().isEmpty());
-        try {
-            getDominoGame().checkIfPlayerCanPass();
-        } catch (Exception e) {
-            
+        for (int tileIndex = 0; tileIndex < getDominoGame().getCurrentPlayer().getHand().size(); tileIndex++) {
+            if (getDominoGame().playPlayerTile(tileIndex));
+                return;
         }
         
-    }
-    
-    private boolean drawAiTile() {
-        try {
-            getDominoGame().drawPlayerTile();
-        } 
-        catch (IOException e) {
-            return false;
+        if (getDominoGame().drawPlayerTile()) {
+            return;
         }
-        getDominoGame().getCurrentPlayer().getDrewTiles();
-        return true;
+        
+        getDominoGame().passPlayer();
     }
-    
-    private boolean playAiTile() {
-        int i = 0;
-        do {
-            try {
-                getDominoGame().playPlayerTile(i);
-                return true;
-            } catch (IOException e) {
-                i++;
-            }
-        } while (i < getDominoGame().getCurrentPlayer().getHand().size());
-        return false;
-    }
+
   
     /**
      * Prints user menu.
      */
-    private void promptUser() {
+    private void playUser() {
         int userOption;
-        boolean userPlayed = false;
-        boolean playerPassed = false;
-        do {
-            userOption = Console.readIntInterval("Choose:\n"
-                    + "1 - Play a tile.\n"
-                    + "2 - Draw a tile.\n"
-                    + "3 - Pass.\n", 1, 3);
+        boolean repeatTurn = true;
+        while(repeatTurn) {
+            userOption = userMenu();
             switch (userOption) {
                 case 1:
-                    userPlayed = playingTile();
+                    int tilePosition = Console.readIntInterval("Which tile do you want to play? ", 1, getDominoGame().getCurrentPlayer().getHand().size());
+                    if (getDominoGame().playPlayerTile(tilePosition - 1)) {
+                        repeatTurn = false;
+                    }
+                    else {
+                        System.out.println("Your tile does not fit within the tile chain.");
+                    }
                     break;
                 case 2:
-                    userPlayed = drawingTile();
+                    if (getDominoGame().drawPlayerTile()) {
+                        repeatTurn = false;
+                    }
+                    else {
+                        System.out.println("You cannot draw a tile either because you have something to play or the boneyard is empty.");
+                    }
                     break;
                 case 3:
-                    userPlayed = passTurn();
-                    if (userPlayed) {
-                        playerPassed = true;
+                    if (getDominoGame().passPlayer()) {
+                        repeatTurn = false;
+                    }
+                    else {
+                        System.out.println("You cannot pass either because you have something to play or the boneyard is not empty.");
                     }
                     break;
             }
-        } while (!userPlayed);
-        if (!playerPassed) {
-            getDominoGame().passPlayerTurn();
         }
     }
     
-    private boolean playingTile() { // Not chained exceptions below
-        int tilePosition;
-        do {
-            try {
-                tilePosition = Console.readIntInterval("Which tile do you want to play? ", 1, getDominoGame().getCurrentPlayer().getHand().size());
-                getDominoGame().playPlayerTile(tilePosition - 1);
-                return true;
-            }
-            catch (IOException e) {
-                System.out.println("Your tile does not fit within the tile chain");
-            }
-            if(Console.askYesNo("Do you want to go back to the menu? ")) {
-                return false;
-            }
-        } while (true);
-    }
-    
-    private boolean drawingTile() {
-        try {
-            getDominoGame().drawPlayerTile();
-        } 
-        catch (IOException e) {
-            System.out.println("You can only draw a tile if you do not have any tile to be played, go check it.");
-            return false;
-        }
-        System.out.println("The tiles that you've already drewn are:");
-        getDominoGame().getCurrentPlayer().getDrewTiles();
-        return true;
-    }
-    
-    private boolean passTurn() {
-        try {
-            getDominoGame().checkIfPlayerCanPass();
-        }
-        catch (InterruptedByTimeoutException e) {
-            System.out.println("You could pass if the boneyard was empty, go check it");
-            return false;
-        }
-        catch (IOException e) {
-            System.out.println("You could pass if you had not a tile to play, go check it");
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Prints domino game's winner.
-     */
-    public void printWinner() {
-        // TODO implement here
+    private int userMenu() {
+        return Console.readIntInterval("Choose:\n"
+                    + "1 - Play a tile.\n"
+                    + "2 - Draw a tile.\n"
+                    + "3 - Pass.\n", 1, 3);
     }
     
     /**
@@ -219,17 +153,3 @@ public class UserIO {
     }
 
 }
-
-//            do { // MAKE A CHAINED EXCEPTIONS OR NOT ??
-//                tilePosition = Console.readIntInterval("Which tile do you want to play?", 1, getDominoGame().getCurrentPlayer().getHand().size());
-//                if (getDominoGame().getTable().getChainLeftTile().getLeftValue() == getDominoGame().getCurrentPlayer().getHand().get(tileIndex).getRightValue()) {
-//                    validTile = true;
-//                }
-//                else if (getDominoGame().getTable().getChainRightTile().getRightValue() == getDominoGame().getCurrentPlayer().getHand().get(tileIndex).getLeftValue()) {
-//                    validTile = true;
-//                }
-//                else {
-//                    System.out.println("Invalid tile, ");
-//                }
-//            } while (!validTile);
-//        getDominoGame().playPlayerTile(tilePosition - 1);

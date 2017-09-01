@@ -35,8 +35,10 @@ public class Player {
     /**
      * True if the player has passed.
      */
-    private boolean pass;
+    private boolean passed;
     
+    
+    private int points;
     
     
     /**
@@ -107,16 +109,16 @@ public class Player {
      * Getter.
      * @return pass
      */
-    public boolean getPass() {
-        return pass;
+    public boolean getPassed() {
+        return passed;
     }
     
     /**
      * Setter.
      * @param pass
      */
-    public void setPass(boolean pass) {
-        this.pass = pass;
+    public void setPassed(boolean pass) {
+        passed = pass;
     }
 
     /**
@@ -129,7 +131,16 @@ public class Player {
         for (Tile tile : getHand()) {
             pointsSum += tile.getTotalValue();
         }
+        setPoints(pointsSum);
         return pointsSum;
+    }
+    
+    public void setPoints(int points) {
+        this.points = points;
+    }
+    
+    public int getPoints() {
+        return points;
     }
 
     /**
