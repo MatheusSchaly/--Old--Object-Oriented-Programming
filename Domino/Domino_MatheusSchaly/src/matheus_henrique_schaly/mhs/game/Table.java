@@ -3,20 +3,21 @@ package matheus_henrique_schaly.mhs.game;
 import java.util.*;
 
 /**
- * The Domino's table.
+ * @author Matheus Schaly
+ * Description: Manages domino game's table.
  */
 public class Table {
 
     /**
-     * Tables's boneyard.
-     */
-    private ArrayList<Tile> boneyard = new ArrayList<>(28);
-
-    /**
      * Tables's tile chain.
      */
-    private ArrayList<Tile> tilesChain = new ArrayList(28);
+    private final ArrayList<Tile> tilesChain = new ArrayList(28);
     
+    /**
+     * Tables's boneyard.
+     */
+    private final ArrayList<Tile> boneyard = new ArrayList<>(28);
+
     /**
      * Table's round.
      */
@@ -32,10 +33,29 @@ public class Table {
         shuffle();
         round = 1;
     }
+    
+    /**
+     * Getter.
+     * 
+     * @return tilesChain Table's tile chain
+     */
+    public ArrayList<Tile> getTilesChain() {
+        return tilesChain;
+    }
+    
+    /**
+     * Getter.
+     * 
+     * @return boneyard Table's boneyard
+     */
+    public ArrayList<Tile> getBoneyard() {
+        return boneyard;
+    }
 
     /**
      * Getter.
-     * @return round
+     * 
+     * @return round Table's round
      */
     public int getRound() {
         return round;
@@ -43,36 +63,37 @@ public class Table {
     
     /**
      * Setter.
-     * @param round
+     * 
+     * @param round Table's round
      */
     public void setRound(int round) { // mudar para add
         this.round = round;
     }
     
     /**
-     * Add one round
+     * Adds tile chain's first tile.
+     * 
+     * @param tile Table's first tile
      */
-    public void addRound() {
-        setRound(getRound() + 1);
-    }
     
-    public void chainFirstTile(Tile tile) {
+    public void addChainFirstTile(Tile tile) {
         getTilesChain().add(tile);
     }
 
     /**
      * Getter.
-     * Gets the tiles chain's right tile.
-     * @return Tile chain's right most tile
+     * 
+     * @return Tile chain's rightmost tile
      */
     public Tile getChainRightTile() {
         return getTilesChain().get(getTilesChain().size() - 1);
     }
 
     /**
-     * Add a new tile to tiles chain's right side.
-     * @param tile
-     * @return if added or not to the chain
+     * Adds a new tile to tiles chain's right side.
+     * 
+     * @param tile Tile to be added
+     * @return True if tile was added
      */
     public boolean addChainRightTile(Tile tile) {
         if (getChainRightTile().getRightValue() == tile.getLeftValue()) {
@@ -84,17 +105,18 @@ public class Table {
 
     /**
      * Getter.
-     * Gets the tiles chain's left tile.
-     * @return Tile left's right most tile
+     * 
+     * @return Tile left's leftmost tile
      */
     public Tile getChainLeftTile() {
         return getTilesChain().get(0);
     }
 
     /**
-     * Add a new tile to tiles chain's left side.
-     * @param tile
-     * @return if added or not to the chain
+     * Adds a new tile to tiles chain's left side.
+     * 
+     * @param tile Tile to be added
+     * @return True if tile was added
      */
     public boolean addChainLeftTile(Tile tile) {
         if (getChainLeftTile().getLeftValue() == tile.getRightValue()) {
@@ -105,41 +127,9 @@ public class Table {
     }
     
     /**
-     * Getter.
-     * @return tilesChain
-     */
-    public ArrayList<Tile> getTilesChain() {
-        return tilesChain;
-    }
-    
-    /**
-     * Setter.
-     * @param tilesChain 
-     */
-    public void setTilesChain(ArrayList<Tile> tilesChain) {
-        this.tilesChain = tilesChain;
-    }
-
-    /**
-     * Getter.
-     * @return boneyard
-     */
-    public ArrayList<Tile> getBoneyard() {
-        return boneyard;
-    }
-    
-    /**
-     * Setter.
-     * @param boneyard
-     */
-    public void setBoneyard(ArrayList<Tile> boneyard) {
-        this.boneyard = boneyard;
-    }
-
-    /**
      * Creates the boneyard.
      */
-    public void createBoneyard() {
+    public final void createBoneyard() {
         for (int i = 0; i < 7; i++) {
             for (int j = i; j < 7; j++) {
                 getBoneyard().add(new Tile(i, j));
@@ -158,10 +148,17 @@ public class Table {
     }
 
     /**
-     * Shuffles the table's tiles.
+     * Shuffles table's tiles.
      */
-    public void shuffle() {
+    public final void shuffle() {
         Collections.shuffle(getBoneyard());
+    }
+    
+    /**
+     * Adds one round to the table.
+     */
+    public void addRound() {
+        setRound(getRound() + 1);
     }
 
 }

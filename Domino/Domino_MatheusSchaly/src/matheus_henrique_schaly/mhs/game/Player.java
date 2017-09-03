@@ -3,47 +3,52 @@ package matheus_henrique_schaly.mhs.game;
 import java.util.*;
 
 /**
- * The Domino's player.
+ * @author Matheus Schaly
+ * Description: Manages player's attributes.
  */
 public class Player {
 
     /**
+     * Player's name.
+     */
+    private final String name;
+    
+    /**
      * Player's hand.
      */
-    private ArrayList<Tile> hand = new ArrayList();
+    private final ArrayList<Tile> hand = new ArrayList();
 
     /**
      * Player's draw tiles.
      */
-    private ArrayList<Tile> drewTiles = new ArrayList(14);
+    private final ArrayList<Tile> drewTiles = new ArrayList(14);
 
-    /**
-     * Player's name.
-     */
-    private String name;
-    
     /**
      * Player's played tile.
      */
     private Tile playedTile;
 
     /**
-     * True is the player is a user.
+     * Player's points based on his tiles.
      */
-    private boolean isUser;
+    private int points;
 
     /**
-     * True if the player has passed.
+     * True if the player has passed his turn.
      */
     private boolean passed;
     
+    /**
+     * True is the player is a user.
+     */
+    private boolean isUser;
     
-    private int points;
     
     
     /**
-     * Player's constructor.
-     * @param name 
+     * Constructor. Initialises player's name
+     * 
+     * @param name Player's name 
      */
     public Player(String name) {
         this.name = name;
@@ -51,7 +56,8 @@ public class Player {
 
     /**
      * Getter.
-     * @return name
+     * 
+     * @return name Player's name
      */
     public String getName() {
         return name;
@@ -59,7 +65,26 @@ public class Player {
     
     /**
      * Getter.
-     * @return playedTile
+     * 
+     * @return Player's hand
+     */
+    public ArrayList<Tile> getHand() {
+        return hand;
+    }
+    
+    /**
+     * Getter.
+     * 
+     * @return Player's drew tiles
+     */
+    public ArrayList getDrewTiles() {
+        return drewTiles;
+    }
+    
+    /**
+     * Getter.
+     * 
+     * @return playedTile Player's last played tile
      */
     public Tile getPlayedTile() {
         return playedTile;
@@ -67,47 +92,35 @@ public class Player {
     
     /**
      * Setter.
-     * @param playedTile
+     * 
+     * @param playedTile Player's last played tile
      */
     public void setPlayedTile(Tile playedTile) {
         this.playedTile = playedTile;
     }
 
     /**
-     * Getter.
-     * @return hand
-     */
-    public ArrayList<Tile> getHand() {
-        return hand;
-    }
-
-    /**
-     * Adds one tile to the hand.
-     * @param tile
-     */
-    public void addHandTile(Tile tile) {
-        hand.add(tile);
-    }
-
-    /**
      * Setter.
-     * @param isUser
+     * 
+     * @param points Player's points
      */
-    public void setIsUser(boolean isUser) {
-        this.isUser = isUser;
+    public void setPoints(int points) {
+        this.points = points;
     }
-
+    
     /**
      * Getter.
-     * @return isUser
+     * 
+     * @return Player's points
      */
-    public boolean getIsUser() {
-        return isUser;
+    public int getPoints() {
+        return points;
     }
-
+    
     /**
      * Getter.
-     * @return pass
+     * 
+     * @return pass True if the player passed
      */
     public boolean getPassed() {
         return passed;
@@ -115,16 +128,70 @@ public class Player {
     
     /**
      * Setter.
-     * @param pass
+     * 
+     * @param pass True if the player passed
      */
     public void setPassed(boolean pass) {
         passed = pass;
     }
+    
+    /**
+     * Setter.
+     * 
+     * @param isUser True if the player is a user
+     */
+    public void setIsUser(boolean isUser) {
+        this.isUser = isUser;
+    }
 
     /**
-     * Calculates playes points based on his or her remaining 
+     * Getter.
+     * 
+     * @return isUser True if the player is a user
+     */
+    public boolean getIsUser() {
+        return isUser;
+    }
+    
+    /**
+     * Adds a tile to the player's hand.
+     * 
+     * @param tile Tile to be added
+     */
+    public void addHandTile(Tile tile) {
+        hand.add(tile);
+    }
+    
+    /**
+     * Plays a tile at the table's tile chain. Get a tile from player's
+     * hand, removing and then returning it.
+     * 
+     * @param handTileIndex The hand's tile index
+     * @return playerPlayedTile The tile removed from player's hand
+     */
+    public Tile playTile(int handTileIndex) {
+        Tile playerPlayedTile = getHand().get(handTileIndex);
+        getHand().remove(handTileIndex);
+        setPlayedTile(playerPlayedTile);
+        return playerPlayedTile;
+    }
+
+    /**
+     * Adds a tile to the player's hand and sets it
+     * as a draw tile.
+     * 
+     * @param tile The drew tile
+     */
+    public void drawTile(Tile tile) {
+        getHand().add(tile);
+        getDrewTiles().add(tile);
+    }
+    
+    /**
+     * Calculates player points based on his or her remaining 
      * hand's tiles.
-     * @return pointSum
+     * 
+     * @return pointSum Sum of all the tiles' points
      */
     public int calculatePoints() {
         int pointsSum = 0;
@@ -135,45 +202,19 @@ public class Player {
         return pointsSum;
     }
     
-    public void setPoints(int points) {
-        this.points = points;
-    }
-    
-    public int getPoints() {
-        return points;
-    }
-
     /**
-     * Draws a tile from boneyard.
-     * @param tile
+     * Clears the tiles from player's drew tiles.
      */
-    public void drawTile(Tile tile) {
-        getHand().add(tile);
-        getDrewTiles().add(tile);
-    }
-
-    /**
-     * Plays a tile at the table's tile chain.
-     * @param handTileIndex
-     * @return playerPlayedTile
-     */
-    public Tile playTile(int handTileIndex) {
-        Tile playerPlayedTile = getHand().get(handTileIndex);
-        getHand().remove(handTileIndex);
-        setPlayedTile(playerPlayedTile);
-        return playerPlayedTile;
-    }
-    
     public void clearDrewTiles() {
         getDrewTiles().clear();
     }
-
+    
     /**
-     * Getter.
-     * @return
+     * Clears the last used tile, used only to print last
+     * player' movement if he has won by emptying his hand.
      */
-    public ArrayList getDrewTiles() {
-        return drewTiles;
+    public void clearUsedTile() {
+        setPlayedTile(null);
     }
     
 }

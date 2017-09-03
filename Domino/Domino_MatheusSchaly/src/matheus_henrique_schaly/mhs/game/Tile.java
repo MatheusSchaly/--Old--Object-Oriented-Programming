@@ -1,7 +1,8 @@
 package matheus_henrique_schaly.mhs.game;
 
 /**
- * The Table's tile.
+ * @author Matheus Schaly
+ * Description: Manages tile's attributes.
  */
 public class Tile {
     
@@ -18,7 +19,8 @@ public class Tile {
     
     
     /**
-     * Tile value's constructor.
+     * Constructor. Initializes tile's values.
+     * 
      * @param leftValue
      * @param rightValue
      */
@@ -30,6 +32,7 @@ public class Tile {
     
     /**
      * Getter.
+     * 
      * @return Tile's left value
      */
     public int getLeftValue() {
@@ -38,6 +41,7 @@ public class Tile {
     
     /**
      * Getter.
+     * 
      * @return Tile's right value
      */
     public int getRightValue() {
@@ -46,15 +50,16 @@ public class Tile {
     
     /**
      * Setter.
+     * 
      * @param leftValue Tile's left value 
      */
     public void setLeftValue(int leftValue) {
         value[0] = leftValue;
     }
     
-    
     /**
      * Setter.
+     * 
      * @param rightValue Tile's right value 
      */
     public void setRightValue(int rightValue) {
@@ -63,14 +68,15 @@ public class Tile {
     
     /**
      * Getter.
-     * @return totalValue
+     * 
+     * @return Tile's total value
      */
     public int getTotalValue() {
         return totalValue;
     }
     
     /**
-     * Flips the tile's values
+     * Flips the tile's values.
      */
     public void tileFlip() {
         int aux = getLeftValue();
@@ -78,7 +84,11 @@ public class Tile {
         setRightValue(aux);
     }
 
-    
+    /**
+     * Overrides the toString java's method.
+     * 
+     * @return The tile with its values
+     */
     @Override
     public String toString() {
         return "[" + getLeftValue() + "," + getRightValue() + "]";

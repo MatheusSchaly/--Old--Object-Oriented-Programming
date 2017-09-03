@@ -1,7 +1,8 @@
 package matheus_henrique_schaly.mhs.game;
 
 /**
- * User input output.
+ * @author Matheus Schaly
+ * Description: Receives input and manages output.
  */
 public class UserIO {
 
@@ -10,6 +11,7 @@ public class UserIO {
      */
     private DominoGame dominoGame;
 
+    
     
     /**
      * Runs UserIO.
@@ -22,7 +24,7 @@ public class UserIO {
         if (userIsPlayer) {
             maxBots--;
         }
-        numBots = Console.readIntInterval("Choose number of bots: ", 2, maxBots);
+        numBots = Console.readIntInterval("Choose number of bots: ", maxBots - 2, maxBots);
         if (userIsPlayer) {
             String userName = Console.readString("Enter your name:");
             setDominoGame(new DominoGame(numBots, userName));
@@ -30,63 +32,36 @@ public class UserIO {
         else {
             setDominoGame(new DominoGame(numBots));
         }
-        getDominoGame().playFirstTile();
+        playTurns();
+    }
+
+    /**
+     * Plays turns (both user and AI) while there is no winner.
+     */
+    private void playTurns() {
         printEndTurn();
-        play();
-    }
-    
-    /**
-     * Prints player's current status.
-     */
-    private void printPlayerStatus() {
-        System.out.println(getDominoGame().getCurrentPlayer().getName() + " it is your turn.");
-        System.out.println("Your hand : " + getDominoGame().getCurrentPlayer().getHand());
-        System.out.println("Table     : " + getDominoGame().getTable().getTilesChain() + "\n");
-    }
-
-    /**
-     * Prints current turn.
-     */
-    private void printEndTurn() {
-        System.out.println("Round\t: " + getDominoGame().getTable().getRound());
-        System.out.println("Player\t: " + getDominoGame().getPreviousPlayer().getName());
-        System.out.println("Hand\t: " + getDominoGame().getPreviousPlayer().getHand());
-        System.out.println("Drew\t: " + getDominoGame().getPreviousPlayer().getDrewTiles());
-        System.out.println("Used\t: " + getDominoGame().getPreviousPlayer().getPlayedTile());
-        if (getDominoGame().getDemonstration()) {
-            System.out.println("Bonyard\t: " + getDominoGame().getTable().getBoneyard());
-        }
-        System.out.println("Table\t: " + getDominoGame().getTable().getTilesChain() + "\n");
-    }
-
-    /**
-     * Prompts player for action.
-     */
-    private void play() {
         Player winner = null;
         do {
             if (getDominoGame().getCurrentPlayer().getIsUser()) {
                 printPlayerStatus();
-                playUser();
+                playTurnsUser();
                 printEndTurn();
             }
             else {
-                playAI();
+                playTurnsAI();
                 printEndTurn();
             }
             winner = getDominoGame().searchWinner();
             getDominoGame().getCurrentPlayer().clearDrewTiles();
         } while (winner == null);
-        getDominoGame().setPreviousPlayer(getDominoGame().getCurrentPlayer());
-        getDominoGame().getTable().addRound();
         printEndTurn();
         System.out.println(winner.getName() + " is the winner.");
     }
     
     /**
-     * AI plays
+     * Plays AI's turn. Tries its actions until it plays any of them.
      */
-    private void playAI() {
+    private void playTurnsAI() {
         do {
             for (int tileIndex = 0; tileIndex < getDominoGame().getCurrentPlayer().getHand().size(); tileIndex++) {
                 if (getDominoGame().playPlayerTile(tileIndex)) {
@@ -103,16 +78,16 @@ public class UserIO {
 
   
     /**
-     * Prints user menu.
+     * Plays user's turn. Prompts the action and checks its availability.
      */
-    private void playUser() {
+    private void playTurnsUser() {
         int userOption;
         boolean repeatTurn = true;
         while(repeatTurn) {
             userOption = userMenu();
             switch (userOption) {
                 case 1:
-                    int tilePosition = Console.readIntInterval("Which tile do you want to play? ", 1, getDominoGame().getCurrentPlayer().getHand().size());
+                    int tilePosition = Console.readIntInterval("Which tile do you want to playTurns? ", 1, getDominoGame().getCurrentPlayer().getHand().size());
                     if (getDominoGame().playPlayerTile(tilePosition - 1)) {
                         repeatTurn = false;
                     }
@@ -122,11 +97,10 @@ public class UserIO {
                     break;
                 case 2:
                     if (getDominoGame().drawPlayerTile()) {
-                        repeatTurn = true;
                         printPlayerStatus();
                     }
                     else {
-                        System.out.println("You cannot draw a tile either because you have something to play or the boneyard is empty.");
+                        System.out.println("You cannot draw a tile either because you have something to playTurns or the boneyard is empty.");
                     }
                     break;
                 case 3:
@@ -134,13 +108,42 @@ public class UserIO {
                         repeatTurn = false;
                     }
                     else {
-                        System.out.println("You cannot pass either because you have something to play or the boneyard is not empty.");
+                        System.out.println("You cannot pass either because you have something to playTurns or the boneyard is not empty.");
                     }
                     break;
             }
         }
     }
     
+    /**
+     * Prints player's current status.
+     */
+    private void printPlayerStatus() {
+        System.out.println(getDominoGame().getCurrentPlayer().getName() + " it is your turn.");
+        System.out.println("Your hand : " + getDominoGame().getCurrentPlayer().getHand());
+        System.out.println("Table     : " + getDominoGame().getTable().getTilesChain() + "\n");
+    }
+
+    /**
+     * Prints the last turn's end information.
+     */
+    private void printEndTurn() {
+        System.out.println("Round\t: " + getDominoGame().getTable().getRound());
+        System.out.println("Player\t: " + getDominoGame().getPreviousPlayer().getName());
+        System.out.println("Hand\t: " + getDominoGame().getPreviousPlayer().getHand());
+        System.out.println("Drew\t: " + getDominoGame().getPreviousPlayer().getDrewTiles());
+        System.out.println("Used\t: " + getDominoGame().getPreviousPlayer().getPlayedTile());
+        if (getDominoGame().getDemonstration()) {
+            System.out.println("Bonyard\t: " + getDominoGame().getTable().getBoneyard());
+        }
+        System.out.println("Table\t: " + getDominoGame().getTable().getTilesChain() + "\n");
+    }
+    
+    /**
+     * Prints user's menu and prompts an action.
+     * 
+     * @return User's decision
+     */
     private int userMenu() {
         return Console.readIntInterval("Choose:\n"
                     + "1 - Play a tile.\n"
@@ -150,7 +153,8 @@ public class UserIO {
     
     /**
      * Getter.
-     * @return dominoGame 
+     * 
+     * @return Domino game
      */
     public DominoGame getDominoGame() {
         return dominoGame;
@@ -158,7 +162,8 @@ public class UserIO {
     
     /**
      * Setter.
-     * @param dominoGame
+     * 
+     * @param dominoGame Domino game
      */
     public void setDominoGame(DominoGame dominoGame) {
         this.dominoGame = dominoGame;
