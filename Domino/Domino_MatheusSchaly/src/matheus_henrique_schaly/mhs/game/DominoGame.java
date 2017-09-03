@@ -254,7 +254,6 @@ public final class DominoGame {
             getCurrentPlayer().drawTile(drewTile);
             return true;
         }
-        
         return false;
     }
     
@@ -267,16 +266,13 @@ public final class DominoGame {
         if (getTable().getBoneyard().isEmpty()) {
             return false;
         }
-
         for (int i = 0; i < getCurrentPlayer().getHand().size(); i++) {
             if (checkPlayedTile(i)) {
                 return false;
             }
         }
-        
         return true;
     } 
-    
     
     /**
      * Passes the player's turn.
@@ -286,8 +282,10 @@ public final class DominoGame {
     public boolean passPlayer() {
         if (checkPass()) {
             getCurrentPlayer().setPassed(true);
+            getCurrentPlayer().clearUsedTile();
             getTable().addRound();
             moveToNextPlayer();
+            return true;
         }
         return false;        
     }
@@ -327,11 +325,9 @@ public final class DominoGame {
      * @return The match's winner
      */
     public Player searchWinner() {
-        if (getCurrentPlayer().getHand().isEmpty()) {
+        if (getPreviousPlayer().getHand().isEmpty()) {
             getTable().addRound();
-            getCurrentPlayer().clearUsedTile();
-            setPreviousPlayer(getCurrentPlayer());
-            return getCurrentPlayer();
+            return getPreviousPlayer();
         }
         for (int playerIndex = 0; playerIndex < getNumPlayers(); playerIndex++) {
             if (!getPlayers().get(playerIndex).getPassed()) {

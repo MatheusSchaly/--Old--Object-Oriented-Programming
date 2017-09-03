@@ -203,18 +203,17 @@ public class Player {
     }
     
     /**
+     * Clears the last used tile.
+     */
+    public void clearUsedTile() {
+        setPlayedTile(null);
+    }
+    
+    /**
      * Clears the tiles from player's drew tiles.
      */
     public void clearDrewTiles() {
         getDrewTiles().clear();
-    }
-    
-    /**
-     * Clears the last used tile, used only to print last
-     * player' movement if he has won by emptying his hand.
-     */
-    public void clearUsedTile() {
-        setPlayedTile(null);
     }
     
 }

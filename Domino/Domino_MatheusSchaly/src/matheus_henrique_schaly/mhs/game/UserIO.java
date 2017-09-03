@@ -54,7 +54,6 @@ public class UserIO {
             winner = getDominoGame().searchWinner();
             getDominoGame().getCurrentPlayer().clearDrewTiles();
         } while (winner == null);
-        printEndTurn();
         System.out.println(winner.getName() + " is the winner.");
     }
     
