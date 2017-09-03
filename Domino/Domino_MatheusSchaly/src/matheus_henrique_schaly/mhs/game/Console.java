@@ -44,6 +44,9 @@ public class Console {
             else if (answer.equals("n")) {
                 return false;
             }
+            else {
+                System.out.println("Choose between y or n.");
+            }
         } while (true);
     }
     

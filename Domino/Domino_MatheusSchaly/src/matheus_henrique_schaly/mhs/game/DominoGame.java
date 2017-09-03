@@ -13,9 +13,19 @@ public final class DominoGame {
     private String winner;
     
     /**
+     * Domino's demonstrative mode.
+     */
+    private boolean demonstration;
+    
+    /**
      * Current player.
      */
     private Player currentPlayer;
+    
+    /**
+     * Previous player.
+     */
+    private Player previousPlayer;
 
     /**
      * Domino's game type.
@@ -39,6 +49,7 @@ public final class DominoGame {
      * @param numBots
      */
     public DominoGame(int numBots) {
+        demonstration = true;
         createBots(numBots);
         numPlayers = numBots;
         setPlayersHand();
@@ -50,6 +61,7 @@ public final class DominoGame {
      * @param name
      */
     public DominoGame(int numBots, String name) {
+        demonstration = false;
         createBots(numBots);
         getPlayers().add(new Player(name));
         numPlayers = numBots + 1;
@@ -71,6 +83,22 @@ public final class DominoGame {
      */
     public void setWinner(String winner) {
         this.winner = winner;
+    }
+    
+    /**
+     * Getter.
+     * @return previousPlayer
+     */
+    public Player getPreviousPlayer() {
+        return previousPlayer;
+    }
+    
+    /**
+     * Setter.
+     * @param previousPlayer
+     */
+    public void setPreviousPlayer(Player previousPlayer) {
+        this.previousPlayer = previousPlayer;
     }
     
     /**
@@ -141,6 +169,7 @@ public final class DominoGame {
                         playedTile = getPlayers().get(j).playTile(k);  
                         getTable().chainFirstTile(playedTile);
                         setCurrentPlayer(getPlayers().get(j));
+                        moveToNextPlayer();
                         return;
                     }
                 }
@@ -155,6 +184,7 @@ public final class DominoGame {
                                 playedTile = getPlayers().get(j).playTile(k);  
                                 getTable().chainFirstTile(playedTile);
                                 setCurrentPlayer(getPlayers().get(k));
+                                moveToNextPlayer();
                                 return;
                             }
                         }
@@ -239,6 +269,7 @@ public final class DominoGame {
     }
     
     public void moveToNextPlayer() {
+        setPreviousPlayer(getCurrentPlayer());
         if (getPlayers().indexOf(getCurrentPlayer()) == (getPlayers().size() - 1)) {
             setCurrentPlayer(getPlayers().get(0));
         }
@@ -248,16 +279,16 @@ public final class DominoGame {
     }
     
     private boolean checkPass() {
-        if (getTable().getBoneyard().isEmpty()) {
-            return false;
-        }
-
         for (int i = 0; i < getCurrentPlayer().getHand().size(); i++) {
             if (checkPlayedTile(i)) {
                 return false;
             }
         }
         
+        if (!getTable().getBoneyard().isEmpty()) {
+            return false;
+        }
+
         return true;
     } 
     
@@ -278,7 +309,7 @@ public final class DominoGame {
         }
         
         for (int playerIndex = 0; playerIndex < getNumPlayers(); playerIndex++) {
-            if (getPlayers().get(playerIndex).getPoints() == Collections.max(playerPoints)) {
+            if (getPlayers().get(playerIndex).getPoints() == Collections.min(playerPoints)) {
                 return getPlayers().get(playerIndex);
             }
         }
@@ -325,6 +356,10 @@ public final class DominoGame {
      */
     public ArrayList<Player> getPlayers() {
         return players;
+    }
+    
+    public boolean getDemonstration() {
+        return demonstration;
     }
 
 }
