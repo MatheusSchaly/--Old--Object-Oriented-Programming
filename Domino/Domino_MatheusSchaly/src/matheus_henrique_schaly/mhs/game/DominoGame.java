@@ -151,7 +151,7 @@ public final class DominoGame {
      * 
      * @param numAI AI's quantity
      */
-    public void createAI(int numAI) {
+    private void createAI(int numAI) {
         String botNames[] = {"Roy Batty", "Leaon Kowalski", "Pris Stratton", "Zhora Salome"};
         for (int i = 0; i < numAI; i++) {
             getPlayers().add(new Player(botNames[i]));
@@ -162,7 +162,7 @@ public final class DominoGame {
      * Creates the players' hand, allocating the
      * table's tile one by one.
      */
-    public void createsPlayersHand() {
+    private void createsPlayersHand() {
         for (int i = 0; i < getNumPlayers(); i++) {
             for (int j = 0; j < 7; j++) {
                 getPlayers().get(i).addHandTile(getTable().drawBoneyardTile());
@@ -173,7 +173,7 @@ public final class DominoGame {
     /**
      * Selects the player that plays the first tile and plays it.
      */
-    public void playFirstTile() {
+    private void playFirstTile() {
         Tile playedTile;
         for (int i = 6; i != -1; i--) {
             for (int j = 0; j < getNumPlayers(); j++) {
@@ -307,7 +307,7 @@ public final class DominoGame {
     /**
      * Moves to the next player's turn and set the previous player.
      */
-    public void moveToNextPlayer() {
+    private void moveToNextPlayer() {
         setPreviousPlayer(getCurrentPlayer());
         if (getPlayers().indexOf(getCurrentPlayer()) == (getPlayers().size() - 1)) {
             setCurrentPlayer(getPlayers().get(0));

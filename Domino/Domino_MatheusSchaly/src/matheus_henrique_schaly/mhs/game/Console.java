@@ -61,14 +61,14 @@ public class Console {
         String answer;
         do {
             answer = input.next();
-            if (answer.equals("y")) {
-                return true;
-            }
-            else if (answer.equals("n")) {
-                return false;
-            }
-            else {
-                System.out.println("Choose between y or n.");
+            switch (answer) {
+                case "y":
+                    return true;
+                case "n":
+                    return false;
+                default:
+                    System.out.println("Choose between y or n.");
+                    break;
             }
         } while (true);
     }

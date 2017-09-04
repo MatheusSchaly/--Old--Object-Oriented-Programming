@@ -54,7 +54,7 @@ public class UserIO {
             winner = getDominoGame().searchWinner();
             getDominoGame().getCurrentPlayer().clearDrewTiles();
         } while (winner == null);
-        System.out.println(winner.getName() + " is the winner.");
+        System.out.println("\n" + winner.getName() + " is the winner.");
     }
     
     /**
@@ -118,7 +118,7 @@ public class UserIO {
      * Prints player's current status.
      */
     private void printPlayerStatus() {
-        System.out.println(getDominoGame().getCurrentPlayer().getName() + " it is your turn.");
+        System.out.println("\n" + getDominoGame().getCurrentPlayer().getName() + " it is your turn.");
         System.out.println("Your hand : " + getDominoGame().getCurrentPlayer().getHand());
         System.out.println("Table     : " + getDominoGame().getTable().getTilesChain() + "\n");
     }
@@ -127,15 +127,15 @@ public class UserIO {
      * Prints the last turn's end information.
      */
     private void printEndTurn() {
-        System.out.println("Round\t: " + getDominoGame().getTable().getRound());
+        System.out.println("\nRound\t: " + getDominoGame().getTable().getRound());
         System.out.println("Player\t: " + getDominoGame().getPreviousPlayer().getName());
         System.out.println("Hand\t: " + getDominoGame().getPreviousPlayer().getHand());
         System.out.println("Drew\t: " + getDominoGame().getPreviousPlayer().getDrewTiles());
         System.out.println("Used\t: " + getDominoGame().getPreviousPlayer().getPlayedTile());
+        System.out.println("Table\t: " + getDominoGame().getTable().getTilesChain());
         if (getDominoGame().getDemonstration()) {
             System.out.println("Bonyard\t: " + getDominoGame().getTable().getBoneyard());
         }
-        System.out.println("Table\t: " + getDominoGame().getTable().getTilesChain() + "\n");
     }
     
     /**

@@ -129,7 +129,7 @@ public class Table {
     /**
      * Creates the boneyard.
      */
-    public final void createBoneyard() {
+    private void createBoneyard() {
         for (int i = 0; i < 7; i++) {
             for (int j = i; j < 7; j++) {
                 getBoneyard().add(new Tile(i, j));
@@ -150,7 +150,7 @@ public class Table {
     /**
      * Shuffles table's tiles.
      */
-    public final void shuffle() {
+    private void shuffle() {
         Collections.shuffle(getBoneyard());
     }
     
