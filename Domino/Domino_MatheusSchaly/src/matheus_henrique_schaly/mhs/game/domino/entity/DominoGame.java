@@ -1,4 +1,4 @@
-package matheus_henrique_schaly.mhs.game;
+package matheus_henrique_schaly.mhs.game.domino.entity;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package matheus_henrique_schaly.mhs.game;
+package matheus_henrique_schaly.mhs.game.lib.io;
 
 import java.util.Scanner;
 import java.util.InputMismatchException;

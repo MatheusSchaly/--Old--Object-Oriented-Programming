@@ -1,4 +1,8 @@
-package matheus_henrique_schaly.mhs.game;
+package matheus_henrique_schaly.mhs.game.domino.view;
+
+import matheus_henrique_schaly.mhs.game.domino.entity.Player;
+import matheus_henrique_schaly.mhs.game.domino.entity.DominoGame;
+import matheus_henrique_schaly.mhs.game.lib.io.Console;
 
 /**
  * @author Matheus Schaly
@@ -14,7 +18,7 @@ public class UserIO {
     
     
     /**
-     * Runs UserIO.
+     * Runs UserIO. Initialises the players and starts the game.
      */
     public void run() {
         int numBots;
