@@ -3,8 +3,9 @@ package matheus_henrique_schaly.mhs.game.domino.entity;
 import java.util.*;
 
 /**
- * @author Matheus Schaly
  * Description: Manages domino game's table.
+ * 
+ * @author Matheus Schaly
  */
 public class Table {
 
@@ -16,7 +17,7 @@ public class Table {
     /**
      * Tables's boneyard.
      */
-    private final ArrayList<Tile> boneyard = new ArrayList<>(28);
+    private final ArrayList<Tile> boneyard = new ArrayList(28);
 
     /**
      * Table's round.
@@ -66,20 +67,10 @@ public class Table {
      * 
      * @param round Table's round
      */
-    public void setRound(int round) { // mudar para add
+    public void setRound(int round) {
         this.round = round;
     }
     
-    /**
-     * Adds tile chain's first tile.
-     * 
-     * @param tile Table's first tile
-     */
-    
-    public void addChainFirstTile(Tile tile) {
-        getTilesChain().add(tile);
-    }
-
     /**
      * Getter.
      * 
@@ -87,6 +78,24 @@ public class Table {
      */
     public Tile getChainRightTile() {
         return getTilesChain().get(getTilesChain().size() - 1);
+    }
+    
+    /**
+     * Getter.
+     * 
+     * @return Tile left's leftmost tile
+     */
+    public Tile getChainLeftTile() {
+        return getTilesChain().get(0);
+    }
+    
+    /**
+     * Adds tile chain's first tile.
+     * 
+     * @param tile Table's first tile
+     */
+    public void addChainFirstTile(Tile tile) {
+        getTilesChain().add(tile);
     }
 
     /**
@@ -104,15 +113,6 @@ public class Table {
     }
 
     /**
-     * Getter.
-     * 
-     * @return Tile left's leftmost tile
-     */
-    public Tile getChainLeftTile() {
-        return getTilesChain().get(0);
-    }
-
-    /**
      * Adds a new tile to tiles chain's left side.
      * 
      * @param tile Tile to be added
@@ -127,6 +127,24 @@ public class Table {
     }
     
     /**
+     * Remove a tile from boneyard.
+     * 
+     * @return drewTile
+     */
+    public Tile drawBoneyardTile() {
+        Tile drewTile = getBoneyard().get(0);
+        getBoneyard().remove(0);
+        return drewTile;
+    }
+    
+    /**
+     * Adds one round to the table.
+     */
+    public void addRound() {
+        setRound(getRound() + 1);
+    }
+    
+    /**
      * Creates the boneyard.
      */
     private void createBoneyard() {
@@ -136,29 +154,12 @@ public class Table {
             }
         }
     }
-    
-    /**
-     * Remove a tile from boneyard.
-     * @return drewTile
-     */
-    public Tile drawBoneyardTile() {
-        Tile drewTile = getBoneyard().get(0);
-        getBoneyard().remove(0);
-        return drewTile;
-    }
 
     /**
      * Shuffles table's tiles.
      */
     private void shuffle() {
         Collections.shuffle(getBoneyard());
-    }
-    
-    /**
-     * Adds one round to the table.
-     */
-    public void addRound() {
-        setRound(getRound() + 1);
     }
 
 }

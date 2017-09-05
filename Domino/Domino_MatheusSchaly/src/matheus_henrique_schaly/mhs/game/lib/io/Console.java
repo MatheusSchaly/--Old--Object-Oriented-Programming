@@ -4,13 +4,14 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 
 /**
- * @author Matheus Schaly
  * Description: Validates user's input.
+ * 
+ * @author Matheus Schaly
  */
 public class Console {
     
     /**
-     * File to read directly from the console.
+     * File that reads directly from the console.
      */
     private final static Scanner input = new Scanner(System.in);
     

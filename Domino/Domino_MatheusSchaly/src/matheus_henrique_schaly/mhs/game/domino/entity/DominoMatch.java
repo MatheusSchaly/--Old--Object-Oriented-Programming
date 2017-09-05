@@ -3,10 +3,11 @@ package matheus_henrique_schaly.mhs.game.domino.entity;
 import java.util.*;
 
 /**
- * @author Matheus Schaly
  * Description: Connects and manages table, player and UserIO classes.
+ * 
+ * @author Matheus Schaly
  */
-public final class DominoGame {
+public class DominoMatch {
     
     /**
      * Turn's current player.
@@ -19,7 +20,7 @@ public final class DominoGame {
     private Player previousPlayer;
 
     /**
-     * Domino's game type.
+     * Domino's number of players.
      */
     private final int numPlayers;
 
@@ -46,7 +47,7 @@ public final class DominoGame {
      * 
      * @param numAI AI's quantity
      */
-    public DominoGame(int numAI) {
+    public DominoMatch(int numAI) {
         demonstration = true;
         players = new ArrayList(numAI);
         createAI(numAI);
@@ -62,13 +63,13 @@ public final class DominoGame {
      * @param name User name
      * @param numAI AI's quantity
      */
-    public DominoGame(int numAI, String name) {
+    public DominoMatch(int numAI, String name) {
         demonstration = false;
         players = new ArrayList(numAI);
         createAI(numAI);
-        getPlayers().add(new Player(name));
+        players.add(new Player(name));
         numPlayers = numAI + 1;
-        getPlayers().get(numPlayers - 1).setIsUser(true);
+        players.get(numPlayers - 1).setIsUser(true);
         createsPlayersHand();
         playFirstTile();
     }

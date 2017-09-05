@@ -1,21 +1,39 @@
 package matheus_henrique_schaly.mhs.game.domino.view;
 
 import matheus_henrique_schaly.mhs.game.domino.entity.Player;
-import matheus_henrique_schaly.mhs.game.domino.entity.DominoGame;
+import matheus_henrique_schaly.mhs.game.domino.entity.DominoMatch;
 import matheus_henrique_schaly.mhs.game.lib.io.Console;
 
 /**
- * @author Matheus Schaly
  * Description: Receives input and manages output.
+ * 
+ * @author Matheus Schaly
  */
 public class UserIO {
 
     /**
      * UserIO's domino game.
      */
-    private DominoGame dominoGame;
+    private DominoMatch dominoGame;
 
     
+    /**
+     * Getter.
+     * 
+     * @return Domino game
+     */
+    public DominoMatch getDominoGame() {
+        return dominoGame;
+    }
+    
+    /**
+     * Setter.
+     * 
+     * @param dominoGame Domino game
+     */
+    public void setDominoGame(DominoMatch dominoGame) {
+        this.dominoGame = dominoGame;
+    }
     
     /**
      * Runs UserIO. Initialises the players and starts the game.
@@ -31,10 +49,10 @@ public class UserIO {
         numBots = Console.readIntInterval("Choose number of bots: ", maxBots - 2, maxBots);
         if (userIsPlayer) {
             String userName = Console.readString("Enter your name:");
-            setDominoGame(new DominoGame(numBots, userName));
+            setDominoGame(new DominoMatch(numBots, userName));
         }
         else {
-            setDominoGame(new DominoGame(numBots));
+            setDominoGame(new DominoMatch(numBots));
         }
         playTurns();
     }
@@ -152,24 +170,6 @@ public class UserIO {
                     + "1 - Play a tile.\n"
                     + "2 - Draw a tile.\n"
                     + "3 - Pass.\n", 1, 3);
-    }
-    
-    /**
-     * Getter.
-     * 
-     * @return Domino game
-     */
-    public DominoGame getDominoGame() {
-        return dominoGame;
-    }
-    
-    /**
-     * Setter.
-     * 
-     * @param dominoGame Domino game
-     */
-    public void setDominoGame(DominoGame dominoGame) {
-        this.dominoGame = dominoGame;
     }
 
 }

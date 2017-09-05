@@ -1,15 +1,16 @@
 package matheus_henrique_schaly.mhs.game.domino.entity;
 
 /**
- * @author Matheus Schaly
  * Description: Manages tile's attributes.
+ * 
+ * @author Matheus Schaly
  */
 public class Tile {
     
     /**
      * Tile's left and right values.
      */
-    private final int[] value = new int[2];
+    private final int[] values = new int[2];
     
     /**
      * Tile's total value.
@@ -21,12 +22,12 @@ public class Tile {
     /**
      * Constructor. Initializes tile's values.
      * 
-     * @param leftValue
-     * @param rightValue
+     * @param leftValue Tile's left value
+     * @param rightValue Tile's right value
      */
     public Tile(int leftValue, int rightValue) {
-        value[0] = leftValue;
-        value[1] = rightValue;
+        values[0] = leftValue;
+        values[1] = rightValue;
         totalValue = leftValue + rightValue;
     }
     
@@ -36,7 +37,7 @@ public class Tile {
      * @return Tile's left value
      */
     public int getLeftValue() {
-        return value[0];
+        return values[0];
     }
     
     /**
@@ -45,7 +46,7 @@ public class Tile {
      * @return Tile's right value
      */
     public int getRightValue() {
-        return value[1];
+        return values[1];
     }
     
     /**
@@ -54,7 +55,7 @@ public class Tile {
      * @param leftValue Tile's left value 
      */
     public void setLeftValue(int leftValue) {
-        value[0] = leftValue;
+        values[0] = leftValue;
     }
     
     /**
@@ -63,7 +64,7 @@ public class Tile {
      * @param rightValue Tile's right value 
      */
     public void setRightValue(int rightValue) {
-        value[1] = rightValue;
+        values[1] = rightValue;
     }
     
     /**

@@ -3,8 +3,9 @@ package matheus_henrique_schaly.mhs.game.main;
 import matheus_henrique_schaly.mhs.game.domino.view.UserIO;
 
 /**
- * @author Matheus Schaly
  * Description: Creates and runs the UserIO class.
+ * 
+ * @author Matheus Schaly
  */
 public class DominoGame {
 
@@ -17,6 +18,8 @@ public class DominoGame {
     }
     
     /**
+     * Main method.
+     * 
      * @param args the command line arguments, not used
      */
     public static void main(String[] args) {

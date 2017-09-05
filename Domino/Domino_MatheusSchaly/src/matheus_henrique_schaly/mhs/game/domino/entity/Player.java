@@ -3,8 +3,9 @@ package matheus_henrique_schaly.mhs.game.domino.entity;
 import java.util.*;
 
 /**
- * @author Matheus Schaly
  * Description: Manages player's attributes.
+ * 
+ * @author Matheus Schaly
  */
 public class Player {
 
@@ -16,10 +17,10 @@ public class Player {
     /**
      * Player's hand.
      */
-    private final ArrayList<Tile> hand = new ArrayList();
+    private final ArrayList<Tile> hand = new ArrayList(21);
 
     /**
-     * Player's draw tiles.
+     * Player's drew tiles.
      */
     private final ArrayList<Tile> drewTiles = new ArrayList(14);
 
@@ -77,7 +78,7 @@ public class Player {
      * 
      * @return Player's drew tiles
      */
-    public ArrayList getDrewTiles() {
+    public ArrayList<Tile> getDrewTiles() {
         return drewTiles;
     }
     
@@ -100,21 +101,21 @@ public class Player {
     }
 
     /**
-     * Setter.
-     * 
-     * @param points Player's points
-     */
-    public void setPoints(int points) {
-        this.points = points;
-    }
-    
-    /**
      * Getter.
      * 
      * @return Player's points
      */
     public int getPoints() {
         return points;
+    }
+    
+    /**
+     * Setter.
+     * 
+     * @param points Player's points
+     */
+    public void setPoints(int points) {
+        this.points = points;
     }
     
     /**
@@ -136,21 +137,21 @@ public class Player {
     }
     
     /**
-     * Setter.
-     * 
-     * @param isUser True if the player is a user
-     */
-    public void setIsUser(boolean isUser) {
-        this.isUser = isUser;
-    }
-
-    /**
      * Getter.
      * 
      * @return isUser True if the player is a user
      */
     public boolean getIsUser() {
         return isUser;
+    }
+    
+    /**
+     * Setter.
+     * 
+     * @param isUser True if the player is a user
+     */
+    public void setIsUser(boolean isUser) {
+        this.isUser = isUser;
     }
     
     /**
