@@ -14,7 +14,7 @@ public class UserIO {
     /**
      * UserIO's domino game.
      */
-    private DominoMatch dominoGame;
+    private DominoMatch dominoMatch;
 
     
     /**
@@ -23,16 +23,16 @@ public class UserIO {
      * @return Domino game
      */
     public DominoMatch getDominoGame() {
-        return dominoGame;
+        return dominoMatch;
     }
     
     /**
      * Setter.
      * 
-     * @param dominoGame Domino game
+     * @param dominoMatch Domino game
      */
-    public void setDominoGame(DominoMatch dominoGame) {
-        this.dominoGame = dominoGame;
+    public void setDominoGame(DominoMatch dominoMatch) {
+        this.dominoMatch = dominoMatch;
     }
     
     /**
