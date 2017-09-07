@@ -756,7 +756,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "-totalValue: int {readOnly}",
+											"text": "-/totalValue: int {readOnly}",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -2065,7 +2065,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "-points: int",
+											"text": "-/points: int",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -8011,7 +8011,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFeCqyb/Hgff5A="
 									},
-									"name": "game",
+									"name": "dominoGame",
 									"ownedElements": [
 										{
 											"_type": "UMLModel",
@@ -8239,7 +8239,7 @@
 															],
 															"isAbstract": false,
 															"isFinalSpecialization": false,
-															"isLeaf": false,
+															"isLeaf": true,
 															"isActive": false
 														}
 													],
@@ -8552,7 +8552,7 @@
 																	"isReadOnly": true,
 																	"isOrdered": false,
 																	"isUnique": false,
-																	"isDerived": false,
+																	"isDerived": true,
 																	"aggregation": "none",
 																	"isID": false
 																}
@@ -9903,7 +9903,7 @@
 																	"isReadOnly": false,
 																	"isOrdered": false,
 																	"isUnique": false,
-																	"isDerived": false,
+																	"isDerived": true,
 																	"aggregation": "none",
 																	"isID": false
 																},
@@ -12007,6 +12007,7 @@
 																			"visibility": "public",
 																			"isStatic": false,
 																			"isLeaf": false,
+																			"type": "",
 																			"isReadOnly": false,
 																			"isOrdered": false,
 																			"isUnique": false,

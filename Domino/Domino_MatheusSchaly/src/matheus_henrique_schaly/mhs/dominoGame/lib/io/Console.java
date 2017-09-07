@@ -1,4 +1,4 @@
-package matheus_henrique_schaly.mhs.game.lib.io;
+package matheus_henrique_schaly.mhs.dominoGame.lib.io;
 
 import java.util.Scanner;
 import java.util.InputMismatchException;
@@ -8,7 +8,7 @@ import java.util.InputMismatchException;
  * 
  * @author Matheus Schaly
  */
-public class Console {
+public final class Console {
     
     /**
      * File that reads directly from the console.

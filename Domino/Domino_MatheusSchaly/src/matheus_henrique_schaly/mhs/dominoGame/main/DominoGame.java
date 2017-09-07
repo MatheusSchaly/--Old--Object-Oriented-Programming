@@ -1,6 +1,6 @@
-package matheus_henrique_schaly.mhs.game.main;
+package matheus_henrique_schaly.mhs.dominoGame.main;
 
-import matheus_henrique_schaly.mhs.game.domino.view.UserIO;
+import matheus_henrique_schaly.mhs.dominoGame.domino.view.UserIO;
 
 /**
  * Description: Creates and runs the UserIO class.

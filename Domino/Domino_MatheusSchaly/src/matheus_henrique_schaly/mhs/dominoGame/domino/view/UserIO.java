@@ -1,8 +1,8 @@
-package matheus_henrique_schaly.mhs.game.domino.view;
+package matheus_henrique_schaly.mhs.dominoGame.domino.view;
 
-import matheus_henrique_schaly.mhs.game.domino.entity.Player;
-import matheus_henrique_schaly.mhs.game.domino.entity.DominoMatch;
-import matheus_henrique_schaly.mhs.game.lib.io.Console;
+import matheus_henrique_schaly.mhs.dominoGame.domino.entity.Player;
+import matheus_henrique_schaly.mhs.dominoGame.domino.entity.DominoMatch;
+import matheus_henrique_schaly.mhs.dominoGame.lib.io.Console;
 
 /**
  * Description: Receives input and manages output.
