@@ -1,4 +1,4 @@
-package br.univali.kob.poo1.aula04;
+package br.univali.kob.poo1.aula05;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -17,9 +17,9 @@ public class PersonListTest {
     
     private void createEmployee() {
         Employee[] myEmployee = new Employee[2];
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        myEmployee[0] = new Employee("Lich King", LocalDate.parse("1980/01/01", format), LocalDate.parse("2005/01/01", format), 30, new BigDecimal("30.0"));
-        myEmployee[1] = new Employee("Indiana Jones", LocalDate.parse("1970/10/10", format), LocalDate.parse("2005/05/20", format), 40, new BigDecimal("40.0"));
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        myEmployee[0] = new Employee("Lich King", LocalDate.parse("01/01/1995", format), LocalDate.parse("01/01/2005", format), 30, new BigDecimal("30.0"));
+        myEmployee[1] = new Employee("Indiana Jones", "10/10/1970", "20/05/2005", 40, "40.0");
         
         String output = "[Employee %d]\n" +
                 "name: %s\n" +

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.univali.kob.poo1.aula04;
+package br.univali.kob.poo1.aula05;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -20,9 +20,9 @@ public class ProfessorInheritanceTest {
     private void createProfessor() {
         System.out.println("test case: createProfessor");
         ArrayList<Professor> professorList = new ArrayList<>(2);
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        professorList.add(new Professor("Indiana Jones", LocalDate.parse("1970/10/10", format), LocalDate.parse("2005/05/20", format), 40, new BigDecimal("40.0"), AcademicDegree.DOCTORATE));
-        professorList.add(new Professor("Peter Quill", LocalDate.parse("1976/01/05", format), LocalDate.parse("2002/09/20", format), 40, new BigDecimal("20.7"), AcademicDegree.MASTER));
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        professorList.add(new Professor("Indiana Jones", LocalDate.parse("10/10/1970", format), LocalDate.parse("20/05/2005", format), 40, new BigDecimal("40.0"), AcademicDegree.DOCTORATE));
+        professorList.add(new Professor("Peter Quill", "05/01/1976", "20/09/2002", 40, "20.7", AcademicDegree.MASTER));
         
                 String output = "[Employee %d]\n" +
                 "name: %s\n" +

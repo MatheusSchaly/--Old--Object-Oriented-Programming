@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.univali.kob.poo1.aula04;
+package br.univali.kob.poo1.aula05;
 
 /**
  *
  * @author hsmatheus
  */
-public class Aula04 {
+public class Aula05 {
 
     /**
      * @param args the command line arguments

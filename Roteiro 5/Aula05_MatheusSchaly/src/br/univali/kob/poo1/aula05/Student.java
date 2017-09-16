@@ -1,4 +1,4 @@
-package br.univali.kob.poo1.aula04;
+package br.univali.kob.poo1.aula05;
 
 import java.time.LocalDate;
 
@@ -36,6 +36,17 @@ public class Student extends Person {
         this.enrollmentDate = enrollmentDate;
         this.dropDate = null;
         validateState();
+    }
+    
+    /**
+     * Constructor.
+     * @param name student's name
+     * @param dateOfBirth student's birth date
+     * @param enrollmentDate student's first enrollment date
+     */
+    public Student(String name, String dateOfBirth, String enrollmentDate) {
+        this(name, LocalDate.parse(dateOfBirth, DATE_FORMAT_DDMMYYYY), 
+                LocalDate.parse(dateOfBirth, DATE_FORMAT_DDMMYYYY));
     }
     
     /**

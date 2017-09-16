@@ -1,4 +1,4 @@
-package br.univali.kob.poo1.aula04;
+package br.univali.kob.poo1.aula05;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -47,6 +47,20 @@ public class Employee extends Person {
         this.hoursPerWorkWeek = hoursPerWorkWeek;
         this.hourlyRate = hourlyRate;
         validateState();
+    }
+    
+    /**
+     * Constructor.
+     * @param name employee's name
+     * @param dateOfBirth employee's birth date
+     * @param hireDate employee's Hiring date
+     * @param hoursPerWorkWeek employees's working hours per week
+     * @param hourlyRate employees's hourly payment rate
+     */
+    public Employee(String name, String dateOfBirth, String hireDate, int hoursPerWorkWeek, String hourlyRate) {
+        this(name, LocalDate.parse(dateOfBirth, DATE_FORMAT_DDMMYYYY),
+                        LocalDate.parse(hireDate, DATE_FORMAT_DDMMYYYY), hoursPerWorkWeek, 
+                                new BigDecimal(hourlyRate));
     }
     
     /**

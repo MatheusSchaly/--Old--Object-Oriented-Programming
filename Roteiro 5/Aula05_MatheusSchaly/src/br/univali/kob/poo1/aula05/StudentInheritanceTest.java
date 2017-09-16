@@ -1,4 +1,4 @@
-package br.univali.kob.poo1.aula04;
+package br.univali.kob.poo1.aula05;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -15,8 +15,8 @@ public class StudentInheritanceTest {
      */
     private void createSubclassStudent() {
         System.out.println("test case: createSubclassStudent");
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        Student student = new Student("John", LocalDate.parse("1994/04/22", format), LocalDate.parse("2017/02/27", format));
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        Student student = new Student("John", LocalDate.parse("22/04/1994", format), LocalDate.parse("27/02/2017", format));
 
         StringBuilder output = new StringBuilder();
         output.append("[Student] name: %s; ");
@@ -50,8 +50,8 @@ public class StudentInheritanceTest {
      */
     private void tryAccessToSuperAttributes() {
         System.out.println("test case: tryAccessToSuperAttributes");
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        Student student = new Student("John", LocalDate.parse("1994/04/22", format), LocalDate.parse("2017/02/27", format));
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        Student student = new Student("John", "22/04/1994", "27/02/2017");
         // Experimente tirar os comentários das próximas linhas e
         // verificar o que acontece. Leia o erro retornado.
         //student.name = "John";

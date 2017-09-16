@@ -1,4 +1,4 @@
-package br.univali.kob.poo1.aula04;
+package br.univali.kob.poo1.aula05;
 
 /**
  * @author Matheus Schaly
@@ -12,6 +12,11 @@ import java.time.format.DateTimeFormatter;
  * Base class for hierarchy of people in the academic system.
  */
 public abstract class Person {
+    
+    /**
+     * Brazilian date format constant.
+     */
+    public static final DateTimeFormatter DATE_FORMAT_DDMMYYYY = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
     /**
      * Next ID to be used.
