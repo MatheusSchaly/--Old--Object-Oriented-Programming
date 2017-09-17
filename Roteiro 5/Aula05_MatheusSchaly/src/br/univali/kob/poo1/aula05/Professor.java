@@ -47,8 +47,8 @@ public class Professor extends Employee {
      * @param academicDegree professor's academic degree
      */
     public Professor(String name, String dateOfBirth, String hireDate, int hoursPerWorkWeek, String hourlyRate, AcademicDegree academicDegree) {
-        this(name, LocalDate.parse(dateOfBirth, DATE_FORMAT_DDMMYYYY),
-                LocalDate.parse(hireDate, DATE_FORMAT_DDMMYYYY), hoursPerWorkWeek,
+        this(name, LocalDate.parse(dateOfBirth, AppConfig.DATE_FORMAT),
+                LocalDate.parse(hireDate, AppConfig.DATE_FORMAT), hoursPerWorkWeek,
                     new BigDecimal(hourlyRate), academicDegree);
     }
     
@@ -113,6 +113,31 @@ public class Professor extends Employee {
     public BigDecimal getHourlyRate() {
         BigDecimal hourlyRate = new BigDecimal("0.0").setScale(2, BigDecimal.ROUND_HALF_EVEN);
         return hourlyRate = super.getHourlyRate().add(getAcademicBonus());
+    }
+    
+    @Override
+    protected String appendToString() {
+        StringBuilder output = new StringBuilder(super.appendToString());
+        output.append(" // Professor " + AppConfig.NEW_LINE);
+        output.append(" academicDegree = " + academicDegree + AppConfig.NEW_LINE);
+        return output.toString();
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (!super.equals(obj)) {
+            return false;
+        }
+        Professor professor = (Professor)obj;
+        return
+                (academicDegree == professor.academicDegree || academicDegree.equals(professor.academicDegree));
+    }
+    
+    @Override
+    public int hashCode() {
+        return
+                super.hashCode() ^
+                academicDegree.ordinal();
     }
     
 }

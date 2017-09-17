@@ -3,6 +3,7 @@ package br.univali.kob.poo1.aula05;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Objects;
 
 /**
  * @author Matheus Schaly
@@ -58,8 +59,8 @@ public class Employee extends Person {
      * @param hourlyRate employees's hourly payment rate
      */
     public Employee(String name, String dateOfBirth, String hireDate, int hoursPerWorkWeek, String hourlyRate) {
-        this(name, LocalDate.parse(dateOfBirth, DATE_FORMAT_DDMMYYYY),
-                        LocalDate.parse(hireDate, DATE_FORMAT_DDMMYYYY), hoursPerWorkWeek, 
+        this(name, LocalDate.parse(dateOfBirth, AppConfig.DATE_FORMAT),
+                        LocalDate.parse(hireDate, AppConfig.DATE_FORMAT), hoursPerWorkWeek, 
                                 new BigDecimal(hourlyRate));
     }
     
@@ -216,6 +217,41 @@ public class Employee extends Person {
      */
     public void setHourlyRate(BigDecimal hourlyRate) {
         this.hourlyRate = hourlyRate;
+    }
+    
+    @Override
+    protected String appendToString() {
+        StringBuilder output = new StringBuilder();
+        output.append(" // Employee " + AppConfig.NEW_LINE);
+        output.append(" hireDate = " + hireDate.format(AppConfig.DATE_FORMAT) + AppConfig.NEW_LINE);
+        output.append(" terminationDate = ");
+        output.append(((terminationDate == null) ? null : terminationDate.format(AppConfig.DATE_FORMAT)) + AppConfig.NEW_LINE);
+        output.append(" hoursPerWorkWeek = " + hoursPerWorkWeek + AppConfig.NEW_LINE);
+        output.append(" hourlyRate = " + hourlyRate.toPlainString() + AppConfig.NEW_LINE);
+        return output.toString();
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (!super.equals(obj)) {
+            return false;
+        }
+        Employee employee = (Employee)obj;
+        return
+                (hireDate == employee.hireDate || hireDate.equals(employee.hireDate)) &&
+                Objects.equals(terminationDate, employee.terminationDate) &&
+                hoursPerWorkWeek == employee.hoursPerWorkWeek &&
+                (hourlyRate == employee.hourlyRate || hourlyRate.equals(employee.hourlyRate));
+    }
+    
+    @Override
+    public int hashCode() {
+        return
+                super.hashCode() ^
+                hireDate.hashCode() ^
+                (terminationDate == null ? 19 : terminationDate.hashCode()) ^
+                hoursPerWorkWeek ^
+                getHourlyRate().hashCode();
     }
     
 }

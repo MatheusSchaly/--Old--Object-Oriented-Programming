@@ -16,25 +16,11 @@ public class StudentInheritanceTest {
     private void createSubclassStudent() {
         System.out.println("test case: createSubclassStudent");
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        Student student = new Student("John", LocalDate.parse("22/04/1994", format), LocalDate.parse("27/02/2017", format));
-
-        StringBuilder output = new StringBuilder();
-        output.append("[Student] name: %s; ");
-        output.append("date of birth: %s; ");
-        output.append("age: %d; ");
-        output.append("roll number: %d; ");
-        output.append("enrolled: %s; ");
-        output.append("enrollment date: %s; ");
-        output.append("drop date: %s;\n\n");
-
-        System.out.format(output.toString(), 
-            student.getName(), 
-            student.getDateOfBirth().format(format),
-            student.getAge(),
-            student.getId(), 
-            student.isEnrolled(),
-            student.getEnrollmentDate().format(format),
-            (student.getDropDate() == null) ? null : student.getDropDate().format(format));
+        Student student1 = new Student("John", LocalDate.parse("22/04/1994", format), LocalDate.parse("27/02/2017", format));
+        Student student2 = new Student("John", "22/04/1994", "27/02/2017");
+        System.out.println(student1);
+        System.out.println(student2);
+        System.out.println("student1.equals(student2) (expected false due to id): " + student1.equals(student2) + "\n");
     }
     
     /**

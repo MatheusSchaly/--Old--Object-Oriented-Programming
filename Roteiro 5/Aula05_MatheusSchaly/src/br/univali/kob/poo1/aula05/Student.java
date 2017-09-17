@@ -45,8 +45,8 @@ public class Student extends Person {
      * @param enrollmentDate student's first enrollment date
      */
     public Student(String name, String dateOfBirth, String enrollmentDate) {
-        this(name, LocalDate.parse(dateOfBirth, DATE_FORMAT_DDMMYYYY), 
-                LocalDate.parse(dateOfBirth, DATE_FORMAT_DDMMYYYY));
+        this(name, LocalDate.parse(dateOfBirth, AppConfig.DATE_FORMAT), 
+                LocalDate.parse(enrollmentDate, AppConfig.DATE_FORMAT));
     }
     
     /**
@@ -108,6 +108,31 @@ public class Student extends Person {
      */
     public void setDropDate(LocalDate dropDate) {
         this.dropDate = dropDate;
+    }
+    
+    @Override
+    protected String appendToString() {
+        StringBuilder output = new StringBuilder();
+        output.append(" // Student " + AppConfig.NEW_LINE);
+        output.append(" enrollmentDate = " + enrollmentDate.format(AppConfig.DATE_FORMAT) + AppConfig.NEW_LINE);
+        return output.toString();
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (!super.equals(obj)) {
+            return false;
+        }
+        Student student = (Student)obj;
+        return
+                (enrollmentDate == student.enrollmentDate || enrollmentDate.equals(student.enrollmentDate));
+    }
+    
+    @Override
+    public int hashCode() {
+        return
+                super.hashCode() ^
+                enrollmentDate.hashCode();
     }
     
 }

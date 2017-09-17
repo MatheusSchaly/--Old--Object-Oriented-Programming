@@ -1,7 +1,6 @@
 package br.univali.kob.poo1.aula05;
 
 import java.math.BigDecimal;
-import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -31,30 +30,10 @@ public class EmployeeInheritanceTest {
     private void createEmployee() {
         System.out.println("test case: createEmployee");
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        Employee employee = new Employee("Peter Quill", LocalDate.parse("15/01/1976", format), LocalDate.parse("20/09/2002", format), 40, new BigDecimal("20.7"));
-
-        String output = "[Employee %d]\n" +
-                "name: %s\n" +
-                "age: %d\n" +
-                "years of service: %d\n" +
-                "hourly rate: %s\n" +
-                "hours per work week: %d\n" +
-                "regular salary: %s\n" +
-                "weekly salary (considering 0 absent hours): %s\n" +
-                "weekly salary (considering 5 absent hours): %s\n" +
-                "weekly salary (considering 10 absent hours): %s\n\n";
-        
-        System.out.printf(output,
-            employee.getId(), 
-            employee.getName(), 
-            employee.getAge(),
-            employee.getYearsOfService(),
-            NumberFormat.getCurrencyInstance().format(employee.getHourlyRate()),
-            employee.getHoursPerWorkWeek(),
-            NumberFormat.getCurrencyInstance().format(employee.getRegularWeekSalary()),
-            NumberFormat.getCurrencyInstance().format(employee.getWeekPayment(0)),
-            NumberFormat.getCurrencyInstance().format(employee.getWeekPayment(5)),
-            NumberFormat.getCurrencyInstance().format(employee.getWeekPayment(10)));
+        Employee employee1 = new Employee("Peter Quill", LocalDate.parse("15/01/1976", format), LocalDate.parse("20/09/2002", format), 40, new BigDecimal("20.7"));
+        Employee employee2 = new Employee("Peter Quill", "15/01/1976", "20/09/2002", 40, "20.7");
+        System.out.println(employee1);
+        System.out.println("employee1.equals(employee2) (expected false due to id): " + employee1.equals(employee2));
     }
 
     /**

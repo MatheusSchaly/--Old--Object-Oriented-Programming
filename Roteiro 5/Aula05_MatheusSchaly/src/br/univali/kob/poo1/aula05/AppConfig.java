@@ -22,7 +22,7 @@ public class AppConfig {
     /**
      * Brazilian date format constant.
      */
-    public static final DateTimeFormatter DATE_FORMAT_DDMMYYYY;
+    public static final DateTimeFormatter DATE_FORMAT;
     
     /**
      * Line break format constant, according to the operating system being used.
@@ -41,7 +41,7 @@ public class AppConfig {
         loadSettings();
         APP_NAME = (String)SETTINGS[0];
         APP_VERSION = (String)SETTINGS[1];
-        DATE_FORMAT_DDMMYYYY = (DateTimeFormatter)SETTINGS[2];
+        DATE_FORMAT = (DateTimeFormatter)SETTINGS[2];
         NEW_LINE = (String)SETTINGS[3];
     }
     

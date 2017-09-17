@@ -1,7 +1,6 @@
 package br.univali.kob.poo1.aula05;
 
 import java.math.BigDecimal;
-import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -16,45 +15,15 @@ public class PersonListTest {
      */
     
     private void createEmployee() {
-        Employee[] myEmployee = new Employee[2];
+        Employee[] myEmployee = new Employee[3];
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         myEmployee[0] = new Employee("Lich King", LocalDate.parse("01/01/1995", format), LocalDate.parse("01/01/2005", format), 30, new BigDecimal("30.0"));
-        myEmployee[1] = new Employee("Indiana Jones", "10/10/1970", "20/05/2005", 40, "40.0");
-        
-        String output = "[Employee %d]\n" +
-                "name: %s\n" +
-                "age: %d\n" +
-                "years of service: %d\n" +
-                "hourly rate: %s\n" +
-                "hours per work week: %d\n" +
-                "regular salary: %s\n" +
-                "weekly salary (considering 0 absent hours): %s\n" +
-                "weekly salary (considering 5 absent hours): %s\n" +
-                "weekly salary (considering 10 absent hours): %s\n\n";
-        
-        System.out.printf(output,
-            myEmployee[0].getId(), 
-            myEmployee[0].getName(), 
-            myEmployee[0].getAge(),
-            myEmployee[0].getYearsOfService(),
-            NumberFormat.getCurrencyInstance().format(myEmployee[0].getHourlyRate()),
-            myEmployee[0].getHoursPerWorkWeek(),
-            NumberFormat.getCurrencyInstance().format(myEmployee[0].getRegularWeekSalary()),
-            NumberFormat.getCurrencyInstance().format(myEmployee[0].getWeekPayment(0)),
-            NumberFormat.getCurrencyInstance().format(myEmployee[0].getWeekPayment(5)),
-            NumberFormat.getCurrencyInstance().format(myEmployee[0].getWeekPayment(10)));
-
-        System.out.printf(output,
-            myEmployee[1].getId(), 
-            myEmployee[1].getName(), 
-            myEmployee[1].getAge(),
-            myEmployee[1].getYearsOfService(),
-            NumberFormat.getCurrencyInstance().format(myEmployee[1].getHourlyRate()),
-            myEmployee[1].getHoursPerWorkWeek(),
-            NumberFormat.getCurrencyInstance().format(myEmployee[1].getRegularWeekSalary()),
-            NumberFormat.getCurrencyInstance().format(myEmployee[1].getWeekPayment(0)),
-            NumberFormat.getCurrencyInstance().format(myEmployee[1].getWeekPayment(5)),
-            NumberFormat.getCurrencyInstance().format(myEmployee[1].getWeekPayment(10)));
+        myEmployee[1] = new Employee("Lich King", "01/01/1995", "01/01/2005", 30, "30.0");
+        myEmployee[2] = new Employee("Indiana Jones", "10/10/1970", "20/05/2005", 40, "40.0");
+        System.out.println(myEmployee[0]);
+        System.out.println(myEmployee[1]);
+        System.out.println(myEmployee[2]);
+        System.out.println("myEmployee[0].equals(myEmployee[1]) (expected false due to id): " + myEmployee[0].equals(myEmployee[1]));
     }
     
     /**

@@ -6,7 +6,6 @@
 package br.univali.kob.poo1.aula05;
 
 import java.math.BigDecimal;
-import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -22,36 +21,14 @@ public class ProfessorInheritanceTest {
         ArrayList<Professor> professorList = new ArrayList<>(2);
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         professorList.add(new Professor("Indiana Jones", LocalDate.parse("10/10/1970", format), LocalDate.parse("20/05/2005", format), 40, new BigDecimal("40.0"), AcademicDegree.DOCTORATE));
+        professorList.add(new Professor("Indiana Jones", "10/10/1970", "20/05/2005", 40, "40.0", AcademicDegree.DOCTORATE));
         professorList.add(new Professor("Peter Quill", "05/01/1976", "20/09/2002", 40, "20.7", AcademicDegree.MASTER));
-        
-                String output = "[Employee %d]\n" +
-                "name: %s\n" +
-                "age: %d\n" +
-                "years of service: %d\n" +
-                "hourly rate with bonus: %s\n" +
-                "hours per work week: %d\n" +
-                "regular salary: %s\n" +
-                "weekly salary (considering 0 absent hours): %s\n" +
-                "weekly salary (considering 5 absent hours): %s\n" +
-                "weekly salary (considering 10 absent hours): %s\n" +
-                "academic degree description: %s\n" +
-                "bonus: %s\n\n";
-        
-        for (int i = 0; i < professorList.size(); i++) {
-            System.out.printf(output,
-            professorList.get(i).getId(), 
-            professorList.get(i).getName(), 
-            professorList.get(i).getAge(),
-            professorList.get(i).getYearsOfService(),
-            NumberFormat.getCurrencyInstance().format(professorList.get(i).getHourlyRate()),
-            professorList.get(i).getHoursPerWorkWeek(),
-            NumberFormat.getCurrencyInstance().format(professorList.get(i).getRegularWeekSalary()),
-            NumberFormat.getCurrencyInstance().format(professorList.get(i).getWeekPayment(0)),
-            NumberFormat.getCurrencyInstance().format(professorList.get(i).getWeekPayment(5)),
-            NumberFormat.getCurrencyInstance().format(professorList.get(i).getWeekPayment(10)),
-            professorList.get(i).getAcademicDegree().getDescription(),
-            NumberFormat.getCurrencyInstance().format(professorList.get(i).getAcademicBonus()));
-        }
+        System.out.println(professorList.get(0));
+        System.out.println(professorList.get(1));
+        System.out.println(professorList.get(2));
+        System.out.println("professorList.get(0).equals(professorList.get(1))) (expected false due to id): " + professorList.get(0).equals(professorList.get(1)));
+        System.out.println("professorList.get(0).equals(professorList.get(0))) (true expected): " + professorList.get(0).equals(professorList.get(0)));
+        System.out.println("professorList.get(0).equals(null) (false expected): " + professorList.get(0).equals(null) + '\n');
     }
 
     /**
