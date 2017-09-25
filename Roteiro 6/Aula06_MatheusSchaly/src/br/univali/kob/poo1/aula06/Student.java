@@ -115,6 +115,8 @@ public class Student extends Person {
         StringBuilder output = new StringBuilder();
         output.append(" // Student " + AppConfig.NEW_LINE);
         output.append(" enrollmentDate = " + enrollmentDate.format(AppConfig.DATE_FORMAT) + AppConfig.NEW_LINE);
+        output.append(" dropDate = ");
+        output.append(((dropDate == null) ? null : dropDate.format(AppConfig.DATE_FORMAT)) + AppConfig.NEW_LINE);
         return output.toString();
     }
     
