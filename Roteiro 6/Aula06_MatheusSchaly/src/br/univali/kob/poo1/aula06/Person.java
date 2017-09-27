@@ -8,7 +8,7 @@ import java.time.Period;
  * 
  * @author Matheus Schaly
  */
-public abstract class Person {
+public abstract class Person implements Contactable {
     
     /**
      * Next ID to be used.
@@ -29,6 +29,11 @@ public abstract class Person {
      * Person's birth date.
      */
     private LocalDate dateOfBirth;
+    
+    /**
+     * Person's email.
+     */
+    private String email;
     
     
     
@@ -228,10 +233,22 @@ public abstract class Person {
      * if the object's state is not altered, the returned value must always be
      * the same. It also must always keep the rule that a.equals(b), then a.hashCode()
      * must be equal to b.hashCode().
+     * 
+     * @return person's hashCode
      */
     @Override
     public int hashCode() {
         return id ^ (name.hashCode()) ^ (dateOfBirth.hashCode());
+    }
+    
+    /**
+     * Getter.
+     * 
+     * @return the person's email
+     */
+    @Override
+    public String getEmail() {
+        return email;
     }
     
 }

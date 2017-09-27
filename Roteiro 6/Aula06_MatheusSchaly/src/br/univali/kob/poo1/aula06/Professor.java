@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 /**
+ * Professor's class.
+ * 
  * @author Matheus Schaly
  */
 public class Professor extends Employee {

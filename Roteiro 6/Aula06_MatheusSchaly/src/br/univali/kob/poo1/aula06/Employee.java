@@ -6,6 +6,8 @@ import java.time.Period;
 import java.util.Objects;
 
 /**
+ * Employee's class
+ * 
  * @author Matheus Schaly
  */
 

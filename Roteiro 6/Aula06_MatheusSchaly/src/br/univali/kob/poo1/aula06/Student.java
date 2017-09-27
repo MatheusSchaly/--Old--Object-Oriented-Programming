@@ -3,6 +3,8 @@ package br.univali.kob.poo1.aula06;
 import java.time.LocalDate;
 
 /**
+ * Student's class.
+ * 
  * @author Matheus Schaly
  */
 
