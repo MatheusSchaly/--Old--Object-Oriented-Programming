@@ -7,4 +7,5 @@ package br.univali.kob.poo1.aula06;
  */
 interface Contactable {
     String getEmail();
+    String getName();
 }

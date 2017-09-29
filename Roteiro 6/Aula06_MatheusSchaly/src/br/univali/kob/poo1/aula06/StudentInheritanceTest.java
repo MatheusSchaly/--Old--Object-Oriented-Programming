@@ -16,8 +16,8 @@ public class StudentInheritanceTest {
     private void createSubclassStudent() {
         System.out.println("test case: createSubclassStudent");
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        Student student1 = new Student("John", LocalDate.parse("22/04/1994", format), LocalDate.parse("27/02/2017", format));
-        Student student2 = new Student("John", "22/04/1994", "27/02/2017");
+        Student student1 = new Student("John", LocalDate.parse("22/04/1994", format), "@email.com", LocalDate.parse("27/02/2017", format));
+        Student student2 = new Student("John", "22/04/1994", "@email.com", "27/02/2017");
         System.out.println(student1);
         System.out.println(student2);
         System.out.println("student1.equals(student2) (expected false due to id): " + student1.equals(student2) + "\n");
@@ -37,7 +37,7 @@ public class StudentInheritanceTest {
     private void tryAccessToSuperAttributes() {
         System.out.println("test case: tryAccessToSuperAttributes");
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        Student student = new Student("John", "22/04/1994", "27/02/2017");
+        Student student = new Student("John", "22/04/1994", "@email.com", "27/02/2017");
         // Experimente tirar os comentários das próximas linhas e
         // verificar o que acontece. Leia o erro retornado.
         //student.name = "John";

@@ -30,8 +30,8 @@ public class EmployeeInheritanceTest {
     private void createEmployee() {
         System.out.println("test case: createEmployee");
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        Employee employee1 = new Employee("Peter Quill", LocalDate.parse("15/01/1976", format), LocalDate.parse("20/09/2002", format), 40, new BigDecimal("20.7"));
-        Employee employee2 = new Employee("Peter Quill", "15/01/1976", "20/09/2002", 40, "20.7");
+        Employee employee1 = new Employee("Peter Quill", LocalDate.parse("15/01/1976", format), "email.com", LocalDate.parse("20/09/2002", format), 40, new BigDecimal("20.7"));
+        Employee employee2 = new Employee("Peter Quill", "15/01/1976", "email.com", "20/09/2002", 40, "20.7");
         System.out.println(employee1);
         System.out.println("employee1.equals(employee2) (expected false due to id): " + employee1.equals(employee2));
     }

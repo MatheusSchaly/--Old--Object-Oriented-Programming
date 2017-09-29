@@ -44,7 +44,7 @@ public abstract class Person implements Contactable {
      * @param name person's name
      * @param dateOfBirth person's date of birth
      */
-    public Person(String name, LocalDate dateOfBirth) {
+    public Person(String name, LocalDate dateOfBirth, String email) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         validateState();
@@ -58,8 +58,8 @@ public abstract class Person implements Contactable {
      * @param name person's name
      * @param dateOfBirth person's date of birth
      */
-    public Person(String name, String dateOfBirth) {
-        this(name, LocalDate.parse(dateOfBirth, AppConfig.DATE_FORMAT));
+    public Person(String name, String dateOfBirth, String email) {
+        this(name, LocalDate.parse(dateOfBirth, AppConfig.DATE_FORMAT), email);
     }
     
     /**

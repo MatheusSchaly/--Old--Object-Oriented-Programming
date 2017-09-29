@@ -43,8 +43,8 @@ public class Employee extends Person {
      * @param hoursPerWorkWeek employees's working hours per week
      * @param hourlyRate employees's hourly payment rate
      */
-    public Employee(String name, LocalDate dateOfBirth, LocalDate hireDate, int hoursPerWorkWeek, BigDecimal hourlyRate) {
-        super(name, dateOfBirth);
+    public Employee(String name, LocalDate dateOfBirth, String email, LocalDate hireDate, int hoursPerWorkWeek, BigDecimal hourlyRate) {
+        super(name, dateOfBirth, email);
         this.terminationDate = null;
         this.hireDate = hireDate;
         this.hoursPerWorkWeek = hoursPerWorkWeek;
@@ -60,8 +60,8 @@ public class Employee extends Person {
      * @param hoursPerWorkWeek employees's working hours per week
      * @param hourlyRate employees's hourly payment rate
      */
-    public Employee(String name, String dateOfBirth, String hireDate, int hoursPerWorkWeek, String hourlyRate) {
-        this(name, LocalDate.parse(dateOfBirth, AppConfig.DATE_FORMAT),
+    public Employee(String name, String dateOfBirth, String email, String hireDate, int hoursPerWorkWeek, String hourlyRate) {
+        this(name, LocalDate.parse(dateOfBirth, AppConfig.DATE_FORMAT), email,
                         LocalDate.parse(hireDate, AppConfig.DATE_FORMAT), hoursPerWorkWeek, 
                                 new BigDecimal(hourlyRate));
     }

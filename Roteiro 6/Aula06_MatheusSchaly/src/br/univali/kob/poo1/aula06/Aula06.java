@@ -22,6 +22,8 @@ public class Aula06 {
         personListTest.run();
         ProfessorInheritanceTest professorTest = new ProfessorInheritanceTest();
         professorTest.run();
+        ComparableValidatorTest comparableTest = new ComparableValidatorTest();
+        comparableTest.run();
     }
     
 }

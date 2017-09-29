@@ -33,8 +33,8 @@ public class Student extends Person {
      * @param dateOfBirth student's birth date
      * @param enrollmentDate student's first enrollment date
      */
-    public Student(String name, LocalDate dateOfBirth, LocalDate enrollmentDate) {
-        super(name, dateOfBirth);
+    public Student(String name, LocalDate dateOfBirth, String email, LocalDate enrollmentDate) {
+        super(name, dateOfBirth, email);
         this.enrollmentDate = enrollmentDate;
         this.dropDate = null;
         validateState();
@@ -46,9 +46,9 @@ public class Student extends Person {
      * @param dateOfBirth student's birth date
      * @param enrollmentDate student's first enrollment date
      */
-    public Student(String name, String dateOfBirth, String enrollmentDate) {
+    public Student(String name, String dateOfBirth, String email, String enrollmentDate) {
         this(name, LocalDate.parse(dateOfBirth, AppConfig.DATE_FORMAT), 
-                LocalDate.parse(enrollmentDate, AppConfig.DATE_FORMAT));
+                email, LocalDate.parse(enrollmentDate, AppConfig.DATE_FORMAT));
     }
     
     /**

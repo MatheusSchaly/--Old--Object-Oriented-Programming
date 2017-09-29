@@ -17,9 +17,9 @@ public class PersonListTest {
     private void createEmployee() {
         Employee[] myEmployee = new Employee[3];
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        myEmployee[0] = new Employee("Lich King", LocalDate.parse("01/01/1995", format), LocalDate.parse("01/01/2005", format), 30, new BigDecimal("30.0"));
-        myEmployee[1] = new Employee("Lich King", "01/01/1995", "01/01/2005", 30, "30.0");
-        myEmployee[2] = new Employee("Indiana Jones", "10/10/1970", "20/05/2005", 40, "40.0");
+        myEmployee[0] = new Employee("Lich King", LocalDate.parse("01/01/1995", format), "@email.com", LocalDate.parse("01/01/2005", format), 30, new BigDecimal("30.0"));
+        myEmployee[1] = new Employee("Lich King", "01/01/1995", "@email.com", "01/01/2005", 30, "30.0");
+        myEmployee[2] = new Employee("Indiana Jones", "10/10/1970", "@email.com", "20/05/2005", 40, "40.0");
         System.out.println(myEmployee[0]);
         System.out.println(myEmployee[1]);
         System.out.println(myEmployee[2]);

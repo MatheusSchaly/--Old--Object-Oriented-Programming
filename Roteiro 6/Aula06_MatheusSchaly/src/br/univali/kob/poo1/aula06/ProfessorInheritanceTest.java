@@ -14,9 +14,9 @@ public class ProfessorInheritanceTest {
         System.out.println("test case: createProfessor");
         ArrayList<Professor> professorList = new ArrayList<>(2);
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        professorList.add(new Professor("Indiana Jones", LocalDate.parse("10/10/1970", format), LocalDate.parse("20/05/2005", format), 40, new BigDecimal("40.0"), AcademicDegree.DOCTORATE));
-        professorList.add(new Professor("Indiana Jones", "10/10/1970", "20/05/2005", 40, "40.0", AcademicDegree.DOCTORATE));
-        professorList.add(new Professor("Peter Quill", "05/01/1976", "20/09/2002", 40, "20.7", AcademicDegree.MASTER));
+        professorList.add(new Professor("Indiana Jones", LocalDate.parse("10/10/1970", format), "email.com", LocalDate.parse("20/05/2005", format), 40, new BigDecimal("40.0"), AcademicDegree.DOCTORATE));
+        professorList.add(new Professor("Indiana Jones", "10/10/1970", "email.com", "20/05/2005", 40, "40.0", AcademicDegree.DOCTORATE));
+        professorList.add(new Professor("Peter Quill", "05/01/1976", "email.com", "20/09/2002", 40, "20.7", AcademicDegree.MASTER));
         System.out.println(professorList.get(0));
         System.out.println(professorList.get(1));
         System.out.println(professorList.get(2));
