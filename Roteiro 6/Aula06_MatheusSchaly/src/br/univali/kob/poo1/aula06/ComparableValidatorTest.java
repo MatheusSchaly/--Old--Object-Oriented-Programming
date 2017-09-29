@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
  * @author Matheus Schaly
  */
 public class ComparableValidatorTest {
+    
     DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     LocalDate myDate = LocalDate.parse("01/01/2017", dateFormat);
     LocalDate minDate = LocalDate.parse("01/01/2014", dateFormat);

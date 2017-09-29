@@ -37,7 +37,7 @@ public class Company implements Contactable {
      * @param email company's email
      * @param dateOfEstablishment company's date of establishment
      */
-    public void Company(String name, String email, LocalDate dateOfEstablishment) {
+    public Company(String name, String email, LocalDate dateOfEstablishment) {
         this.name = name;
         this.email = email;
         this.dateOfEstablishment = dateOfEstablishment;
@@ -50,7 +50,7 @@ public class Company implements Contactable {
      * @param email company's email
      * @param dateOfEstablishment company's date of establishment
      */
-    public void Company(String name, String email, String dateOfEstablishment) {
+    public Company(String name, String email, String dateOfEstablishment) {
         this(name, email, LocalDate.parse(dateOfEstablishment, AppConfig.DATE_FORMAT));
     }
 
