@@ -208,6 +208,8 @@ public abstract class Person implements Contactable {
         output.append(" id = " + id + AppConfig.NEW_LINE);
         output.append(" name = " + name + AppConfig.NEW_LINE);
         output.append(" dateOfBirth = " + dateOfBirth.format(AppConfig.DATE_FORMAT) + AppConfig.NEW_LINE);
+        output.append(" email = " + email + AppConfig.NEW_LINE);
+        output.append(" address = " + address + AppConfig.NEW_LINE);
         output.append(appendToString());
         output.append("}" + AppConfig.NEW_LINE);
         return output.toString();
@@ -256,7 +258,9 @@ public abstract class Person implements Contactable {
         return
                 id == person.id &&
                 (name == person.name || name.equals(person.name)) &&
-                (dateOfBirth == person.dateOfBirth || dateOfBirth.equals(person.dateOfBirth));
+                (dateOfBirth == person.dateOfBirth || dateOfBirth.equals(person.dateOfBirth)) && 
+                (email == person.email || email.equals(person.email)) &&
+                (address == person.address || address.equals(person.address));
     }
     
     /**
@@ -270,7 +274,7 @@ public abstract class Person implements Contactable {
      */
     @Override
     public int hashCode() {
-        return id ^ (name.hashCode()) ^ (dateOfBirth.hashCode());
+        return id ^ (name.hashCode()) ^ (dateOfBirth.hashCode()) ^ (email.hashCode()) ^ (address.hashCode());
     }
     
     /**
@@ -304,7 +308,7 @@ public abstract class Person implements Contactable {
     /**
      * Setter.
      * 
-     * @param adress the person's address
+     * @param address the person's address
      */
     public void setAddress(Address address) {
         this.address = address;
