@@ -8,7 +8,7 @@ package br.univali.kob.poo1.aula08;
 /**
  * @author Matheus Schaly
  */
-public class Aula07 {
+public class Aula08 {
 
     /**
      * @param args the command line arguments

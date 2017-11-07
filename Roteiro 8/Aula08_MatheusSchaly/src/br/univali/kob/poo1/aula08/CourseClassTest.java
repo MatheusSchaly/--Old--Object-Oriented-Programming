@@ -27,7 +27,7 @@ public class CourseClassTest {
         Class es1_171 = new Class(2017, 1, es1);
         Class es2_171 = new Class(2017, 1, es2);
         
-        bruce.addClass(poo1_171);
+        bruce.addClass(poo1_171); //  <- Bug
 //        emma.addClass(poo1_171);
 //        poo1_171.delProfessor(bruce);
         
