@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 public class PersonListTest {
     
     /**
-     * Test case: instanciate, fill and show a employee.
+     * Test case: instantiate, fill and show a employee.
      */
     
     private void createEmployee() {

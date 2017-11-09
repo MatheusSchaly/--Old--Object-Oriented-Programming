@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.univali.kob.poo1.aula08;
 
 /**
- *
- * @author HsMatheus
+ * Tests the Course and Class classes.
+ * 
+ * @author Matheus Schaly
  */
 public class CourseClassTest {
     
@@ -28,12 +24,12 @@ public class CourseClassTest {
         Class es2_171 = new Class(2017, 1, es2);
         
         bruce.addClass(poo1_171); //  <- Bug
-//        emma.addClass(poo1_171);
-//        poo1_171.delProfessor(bruce);
+        emma.addClass(poo1_171);
+        poo1_171.delProfessor(bruce);
         
-//        System.out.println(bruce);
-//        System.out.println(poo1_171);
-//        System.out.println(emma);
+        System.out.println(bruce);
+        System.out.println(poo1_171);
+        System.out.println(emma);
     }
 
     public void run() {

@@ -36,7 +36,7 @@ public final class Address {
      */
     public Address(String streetLine1, String streetLine2, City city, String zipCode) {
         StringValidator val = new StringValidator();
-        val.minWordsCount(streetLine1, "Address", 3);
+        val.minWordsCount(streetLine1, "Address", 1);
         this.streetLine1 = streetLine1;
         this.streetLine2 = streetLine2;
         this.city = city;

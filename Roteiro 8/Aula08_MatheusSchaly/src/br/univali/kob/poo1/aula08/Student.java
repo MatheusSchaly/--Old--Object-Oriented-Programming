@@ -1,6 +1,8 @@
 package br.univali.kob.poo1.aula08;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Student's class.
@@ -9,11 +11,6 @@ import java.time.LocalDate;
  */
 
 public class Student extends Person {
-    
-    /**
-     * Student's enrollment number.
-     */
-    private int enrollmentNumber;
     
     /**
      * Student's first enrollment date.
@@ -25,6 +22,10 @@ public class Student extends Person {
      */
     private LocalDate dropDate;
     
+    /**
+     * Class enrollments where the student is or was enrolled.
+     */
+    private List<Enrollment> enrollments = new ArrayList<>();
     
     
     /**
@@ -141,6 +142,64 @@ public class Student extends Person {
         return
                 super.hashCode() ^
                 enrollmentDate.hashCode();
+    }
+    
+    /**
+     * @return All student's class enrollments
+     */
+    public List<Enrollment> getEnrollments() {
+        return enrollments;
+    }
+    
+    /**
+     * @param aClass the student's enrollment class
+     * @return class' enrollment of this student, null if the class
+     * is/was not enrolled in this student
+     */
+    public Enrollment getEnrollment(Class aClass) {
+        for (Enrollment enrollment: enrollments) {
+            if (enrollment.getAClass() == aClass) {
+                return enrollment;
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Enrolls this student in a class.
+     * 
+     * @param enrollment the enrollment to be added
+     */
+    public void addEnrollment(Enrollment enrollment) {
+        validateEnrollment(enrollment);
+        if (!enrollments.contains(enrollment)) {
+            enrollments.add(enrollment);
+            enrollment.getAClass().addEnrollment(enrollment);
+        }
+    }
+    
+    /**
+     * Validates if the enrollment's student is the same as this.
+     * 
+     * @param enrollment the enrollment to be validate
+     */
+    private void validateEnrollment(Enrollment enrollment) {
+        if (enrollment.getStudent() != this) {
+            throw new IllegalArgumentException("Expected student " + this + " but other have been sent " + enrollment.getStudent());
+        }
+    }
+    
+    /**
+     * Removes the class' enrollment of a student.
+     * 
+     * @param enrollment the enrollment to be removed
+     */
+    public void delEnrollment(Enrollment enrollment) {
+        validateEnrollment(enrollment);
+        if (enrollments.contains(enrollment)) {
+            enrollments.remove(enrollment);
+            enrollment.getAClass().delEnrollment(enrollment);
+        }
     }
     
 }

@@ -31,7 +31,12 @@ public class Class {
     /**
      * Class' professors
      */
-    private List<Professor> professors;
+    private List<Professor> professors = new ArrayList<>();
+    
+    /**
+     * Student's enrollments of this class. 
+     */
+    private List<Enrollment> enrollments = new ArrayList<>();
 
     /**
      * Constructor.
@@ -43,6 +48,22 @@ public class Class {
         this.year = year;
         this.semester = semester;
         this.course = course;
+        validateState();
+    }
+    
+    private void validateState() {
+        Validator val = new Validator();
+        validateYear();
+        validateSemestre();
+        val.notNull(course, "course");
+    }
+    
+    private void validateYear() {
+        new ComparableValidator().range(year, "year", 1950, 3000);
+    }
+    
+    private void validateSemestre() {
+       new ComparableValidator().range(semester, "semester", 1, 2);
     }
 
     /**
@@ -147,5 +168,64 @@ public class Class {
             professor.delClass(this);
         }
     }
-
+    
+    /**
+     * @return all student's enrollments of this class.
+     */
+    public List<Enrollment> getEnrollments() {
+        return enrollments;
+    }
+    
+    /**
+     * @param student the student enrolled in this class
+     * @return student's enrollment of this class, null if the student
+     * is/was not enrolled in this class
+     */
+    public Enrollment getEnrollment(Student student) {
+        for (Enrollment enrollment: enrollments) {
+            if (enrollment.getStudent() == student) {
+                return enrollment;
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Enrolls a student in a class.
+     * 
+     * @param enrollment the enrollment to be added
+     */
+    public void addEnrollment(Enrollment enrollment) {
+        validateEnrollment(enrollment);
+        if (!enrollments.contains(enrollment)) {
+            enrollments.add(enrollment);
+            enrollment.getStudent().addEnrollment(enrollment);
+        }
+    }
+    
+    
+    /**
+     * Validates if the enrollment's class sent is the same as this.
+     * 
+     * @param enrollment the enrollment to be validated
+     */
+    private void validateEnrollment(Enrollment enrollment) {
+        if (enrollment.getAClass() != this) {
+            throw new IllegalArgumentException("Expected class " + this + " but other have been sent " + enrollment.getAClass());
+        }
+    }
+    
+    /**
+     * Removes the student's enrollment of a class.
+     * 
+     * @param enrollment the enrollment to be removed
+     */
+    public void delEnrollment(Enrollment enrollment) {
+        validateEnrollment(enrollment);
+        if (enrollments.contains(enrollment)) {
+            enrollments.remove(enrollment);
+            enrollment.getStudent().delEnrollment(enrollment);
+        }
+    }
+    
 }

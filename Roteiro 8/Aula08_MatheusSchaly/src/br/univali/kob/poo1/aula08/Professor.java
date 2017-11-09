@@ -21,7 +21,7 @@ public class Professor extends Employee {
     /**
      * Professor's classes.
      */
-    private List<Class> classes;
+    private List<Class> classes = new ArrayList<>();
     
     
     

@@ -30,8 +30,9 @@ public class Aula08 {
 //        cityTest.run();
 //        WholeAddressTest wholeAddressTest = new WholeAddressTest();
 //        wholeAddressTest.run();
-        CourseClassTest courseClassTest = new CourseClassTest();
-        courseClassTest.run();
+//        CourseClassTest courseClassTest = new CourseClassTest();
+//        courseClassTest.run();
+        new EnrollmentTest().run();
     }
     
 }
