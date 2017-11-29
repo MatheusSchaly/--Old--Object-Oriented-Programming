@@ -1,3 +1,10 @@
+3
+Pequena
+6
+Media
+8
+Grande
+10
 5
 ALHO E OLEO
 5
@@ -10,6 +17,7 @@ Azeitona
 18
 20
 QUATRO QUEIJOS
+7
 Molho
 Mussarela
 Provolone
@@ -21,6 +29,7 @@ Oregano
 22
 24
 MARGUERITA
+7
 Molho
 Mussarela
 Tomate
@@ -32,6 +41,7 @@ Azeitona Preta
 18
 20
 CHAMPIGNON
+5
 Champignon Salpicado
 Parmesao
 Oregano
@@ -41,6 +51,7 @@ Azeitona
 20
 22
 BANANA
+5
 Banana
 Acucar
 Mel Karo
