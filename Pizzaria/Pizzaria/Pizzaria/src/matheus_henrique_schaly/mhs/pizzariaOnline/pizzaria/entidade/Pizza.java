@@ -1,5 +1,6 @@
 package matheus_henrique_schaly.mhs.pizzariaOnline.pizzaria.entidade;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -21,36 +22,25 @@ public class Pizza {
     private String nome;
 
     /**
-     * Tamanho e quantidade de fatias da pizza.
-     */
-    private HashMap<String Int> tamanho;
-
-    /**
      * Lista de ingredientes da pizza.
      */
     private ArrayList<String> ingredientes;
 
     /**
-     * Valor da pizza.
-     */
-    private float valor;
-
-    /**
-     * @param nome 
-     * @param tamanho 
-     * @param ingredientes 
+     * @param nome
+     * @param ingredientes
      * @param valor
      */
-    public Pizza(String nome, HashMap<String, Integer> tamanho, ArrayList<String> ingredientes, float valor) {
-        // TODO implement here
+    public Pizza(String nome, ArrayList<String> ingredientes) {
+        this.nome = nome;
+        this.ingredientes = ingredientes;
     }
 
     /**
      * @return
      */
     public String getNome() {
-        // TODO implement here
-        return "";
+        return nome;
     }
 
     /**

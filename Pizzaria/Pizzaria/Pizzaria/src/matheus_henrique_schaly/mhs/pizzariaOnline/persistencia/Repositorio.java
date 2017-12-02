@@ -5,38 +5,43 @@ import java.util.*;
 /**
  * Repositorio que armazena elementos.
  * 
- * @author Matheus Henrique Schaly
+ * @author Matheus Schaly e Mauricio Farias 
+ * @param <T>
  */
-public abstract class Repositorio<T> {
+public class Repositorio<T> {
 
+    public ArrayList<T> elementos = new ArrayList<>();
+    
     /**
      * Default constructor
      */
-    public Repositorio() {
-    }
-
+    public Repositorio() {}
+    
     /**
-     * Todos os elementos do repositorio.
-     */
-    private ArrayList<T> elementos;
-
-    /**
-     * Salva um elemento no repositorio.
+     * 
      * @param elemento 
-     * @return
      */
-    protected void salva(T elemento) {
-        // TODO implement here
-        return null;
+    public void salva(T elemento)
+    {
+        elementos.add(elemento);
     }
 
     /**
-     * Recupera todos os elementos do repositorio.
-     * @return
+     * 
+     * @return 
      */
-    protected ArrayList<T> getAll() {
-        // TODO implement here
-        return null;
+    public ArrayList getAll() 
+    {
+        return elementos;
     }
-
+    
+    /**
+     * 
+     * @param posicao
+     * @return 
+     */
+    public T get(int posicao)
+    {
+        return elementos.get(posicao);
+    }
 }

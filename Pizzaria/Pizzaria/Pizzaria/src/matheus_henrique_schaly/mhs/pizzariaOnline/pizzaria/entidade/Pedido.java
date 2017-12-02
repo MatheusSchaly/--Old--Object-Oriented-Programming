@@ -31,22 +31,17 @@ public class Pedido {
     private String cpf;
 
     /**
-     * Confirmacao do pedido.
-     */
-    private boolean confirmacao;
-
-    /**
      * Lista de pizzas pedidas.
      */
     private ArrayList<String, String> pizzas;
 
     /**
+     * @param cpf
      * @param cliente
-     * @param confirmacao 
      * @param Boolean 
      * @param pizzas
      */
-    public void Pedido(String cpf, boolean confirmacao, ArrayList<String, String> pizzas) {
+    public void Pedido(String cpf, ArrayList<String, String> pizzas) {
         // TODO implement here
     }
 
@@ -71,23 +66,6 @@ public class Pedido {
      * @return
      */
     public void setCpf(String cpf) {
-        // TODO implement here
-        return null;
-    }
-
-    /**
-     * @return
-     */
-    public boolean getConfirmacao() {
-        // TODO implement here
-        return null;
-    }
-
-    /**
-     * @param confirmacao 
-     * @return
-     */
-    public void setConfirmacao(boolean confirmacao) {
         // TODO implement here
         return null;
     }

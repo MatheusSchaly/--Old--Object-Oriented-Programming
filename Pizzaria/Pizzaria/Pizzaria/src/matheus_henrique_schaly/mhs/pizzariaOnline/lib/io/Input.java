@@ -4,8 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.*;
-import matheus_henrique_schaly.mhs.pizzariaOnline.persistencia.*;
+import matheus_henrique_schaly.mhs.pizzariaOnline.persistencia.Repositorio;
 import matheus_henrique_schaly.mhs.pizzariaOnline.pizzaria.entidade.*;
 
 /**
@@ -18,17 +19,27 @@ public class Input {
     /**
      * Repositorio de pedidos.
      */
-    private RepositorioDePedidos repositorioDePedidos;
+    private final Repositorio<Pedido> repositorioDePedidos = new Repositorio<>();
 
     /**
      * Repositorio de clientes.
      */
-    private RepositorioDeClientes repositorioDeClientes;
+    private final Repositorio<Cliente> repositorioDeClientes = new Repositorio<>();
 
     /**
      * Repositorio de pizzas.
      */
-    private RepositorioDePizzas repositorioDePizzas = new RepositorioDePizzas();
+    private final Repositorio<Pizza> repositorioDePizzas = new Repositorio<>();
+    
+    /**
+     * Repositorio de tamanhos
+     */
+    private final Repositorio<Tamanho> repositorioDeTamanho = new Repositorio<>();
+    
+    /**
+     * Repositorio de Item Pedido
+     */
+    private final Repositorio<ItemPedido> repositorioDeItemPedido = new Repositorio<>();
 
     /**
      * Inicia o programa.
@@ -44,56 +55,60 @@ public class Input {
      */
     private void geraMenu() {
         String nomeArquivo = "menu.txt";
-        String nome, tamanho, linha;
+        String nome, linha, tamanho;
         int quantidadeIngredientes, quantidadeTamanhos, quantidadePizzas;
-        HashMap<String, Integer> tamanhoFatias;
         ArrayList<String> ingredientes;
         float valor;
+        FileReader leitorDeArquivo;
+        BufferedReader leitorDeBuffer;
         
-        try {
-          FileReader leitorDeArquivo = new FileReader(nomeArquivo);
-          BufferedReader leitorDeBuffer = new BufferedReader(leitorDeArquivo);
-          
-          // Le primeira linha, quantidade de tamanhos
-          quantidadeTamanhos = Integer.parseInt(leitorDeBuffer.readLine());
-          tamanhoFatias = new HashMap<>(quantidadeTamanhos);
-          
-          // Le tamanhos e quantidade de fatias
-          for (int i = 0; i < quantidadeTamanhos; i++) {
-              tamanho = leitorDeBuffer.readLine();
-              tamanhoFatias.put(tamanho, Integer.parseInt(leitorDeBuffer.readLine()));
-          }
-          
-          // Le quantidade de pizzas
-          quantidadePizzas = Integer.parseInt(leitorDeBuffer.readLine());
-          
-          for (int i = 0; i < quantidadePizzas; i++) {
-              // Le nome da pizza
-              nome = leitorDeBuffer.readLine();
-              
-              // Le quantidade de ingredientes
-              quantidadeIngredientes = Integer.parseInt(leitorDeBuffer.readLine());
-              ingredientes = new ArrayList<>(quantidadeIngredientes);
-              
-              // Le ingredientes
-              for (int j = 0; j < quantidadeIngredientes; j++) {
-                  ingredientes.add(leitorDeBuffer.readLine());
-              }
-              
-              // Le valores e cria pizzas
-              for (int j = 0; j < quantidadeTamanhos; j++) {
-                  repositorioDePizzas.salva(new Pizza(nome, tamanhoFatias, ingredientes, Integer.parseInt(leitorDeBuffer.readLine())));
-              }
-          }
+        try 
+        {
+            leitorDeArquivo = new FileReader(nomeArquivo);
+            leitorDeBuffer = new BufferedReader(leitorDeArquivo);
+            
+            // Le primeira linha, quantidade de tamanhos
+            quantidadeTamanhos = Integer.parseInt(leitorDeBuffer.readLine());
 
-          leitorDeBuffer.close();         
+            // Le tamanhos e quantidade de fatias
+            for (int i = 0; i < quantidadeTamanhos; i++) {
+                tamanho = leitorDeBuffer.readLine();
+                repositorioDeTamanho.salva(new Tamanho(tamanho, Integer.parseInt(leitorDeBuffer.readLine())));
+            }
+
+            // Le quantidade de pizzas
+            quantidadePizzas = Integer.parseInt(leitorDeBuffer.readLine());
+
+            for (int i = 0; i < quantidadePizzas; i++) {
+                // Le nome da pizza
+                nome = leitorDeBuffer.readLine();
+
+                // Le quantidade de ingredientes
+                quantidadeIngredientes = Integer.parseInt(leitorDeBuffer.readLine());
+                ingredientes = new ArrayList<>(quantidadeIngredientes);
+
+                // Le ingredientes
+                for (int j = 0; j < quantidadeIngredientes; j++) {
+                    ingredientes.add(leitorDeBuffer.readLine());
+                }
+
+                // Le valores e cria pizzas
+                repositorioDePizzas.salva(new Pizza(nome, ingredientes));
+                
+                for (int j = 0; j < quantidadeTamanhos; j++)
+                {
+                    repositorioDeItemPedido.salva(new ItemPedido(repositorioDePizzas.get(repositorioDePizzas.getAll().size()-1),
+                            repositorioDeTamanho.get(j), new BigDecimal(leitorDeBuffer.readLine())));
+                }
+                
+                leitorDeBuffer.close();
+            }
         }
-        
         catch(FileNotFoundException ex) {
-          System.out.println("Erro ao encontrar o arquivo '" + nomeArquivo + "'");             
+            System.out.println("Erro ao encontrar o arquivo '" + nomeArquivo + "'");
         }
-         catch(IOException ex) {
-          System.out.println("Erro ao ler o arquivo '" + nomeArquivo + "'");
+        catch(IOException ex) {
+            System.out.println("Erro ao ler o arquivo '" + nomeArquivo + "'");
         }
     }
 
@@ -139,8 +154,9 @@ public class Input {
         String nomeArquivo = "pedidos.txt";
         String cpf;
         boolean confirmacao;
-        HashMap<String, String> pizzas; 
+        String nomePizza, tamanho;
         int quantidadePedidos, quantidadePizzas;
+        ArrayList<ItemPedido> itemPedidos = new ArrayList<>();
         
         try {
           FileReader leitorDeArquivo = new FileReader(nomeArquivo);
@@ -155,11 +171,20 @@ public class Input {
               
               // Le quantidade de pizzas pedidas
               quantidadePizzas = Integer.parseInt(leitorDeBuffer.readLine());
-              pizzas = new HashMap<>(quantidadePizzas);
               
               // Le nome da pizza e tamanho
               for (int j = 0; j < quantidadePizzas; j++) {
-                  pizzas.put(leitorDeBuffer.readLine(), leitorDeBuffer.readLine());
+                  nomePizza = leitorDeBuffer.readLine();
+                  tamanho = leitorDeBuffer.readLine();
+                  
+                  for (int k = 0;k < repositorioDeItemPedido.getAll().size(); k++)
+                  {
+                      if (repositorioDeItemPedido.get(k).getPizza().getNome().equals(nomePizza) &&
+                              repositorioDeItemPedido.get(k).getTamanho().getDescription().equals(tamanho))
+                      {
+                          
+                      }
+                  }
               }
 
               // Le se pedido foi confirmado

@@ -1,19 +1,11 @@
 package matheus_henrique_schaly.mhs.pizzariaOnline.pizzaria.entidade;
 
-import java.util.*;
-
 /**
  * Gerencia as caracteristicas de um Cliente.
  * 
  * @author Matheus Henrique Schaly
  */
 public class Cliente {
-
-    /**
-     * Default constructor
-     */
-    public Cliente() {
-    }
 
     /**
      * Nome do cliente.
@@ -42,7 +34,7 @@ public class Cliente {
      * @param endereco
      */
     public void Cliente(String nome, String telefone, String cpf, String endereco) {
-        // TODO implement here
+        // TO DO here
     }
 
     /**
