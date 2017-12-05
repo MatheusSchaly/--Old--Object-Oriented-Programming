@@ -156,7 +156,7 @@ public class Input {
         boolean confirmacao;
         String nomePizza, tamanho;
         int quantidadePedidos, quantidadePizzas;
-        ArrayList<ItemPedido> itemPedidos = new ArrayList<>();
+        ArrayList<ItemPedido> itensPedidos = new ArrayList<>();
         
         try {
           FileReader leitorDeArquivo = new FileReader(nomeArquivo);
@@ -177,12 +177,13 @@ public class Input {
                   nomePizza = leitorDeBuffer.readLine();
                   tamanho = leitorDeBuffer.readLine();
                   
-                  for (int k = 0;k < repositorioDeItemPedido.getAll().size(); k++)
+                  // Checa se item pedido ja existe e faz o pedido apontar para o mesmo
+                  for (int k = 0; k < repositorioDeItemPedido.getAll().size(); k++)
                   {
                       if (repositorioDeItemPedido.get(k).getPizza().getNome().equals(nomePizza) &&
                               repositorioDeItemPedido.get(k).getTamanho().getDescription().equals(tamanho))
                       {
-                          
+                          itensPedidos.add(repositorioDeItemPedido.get(k));
                       }
                   }
               }
@@ -195,7 +196,7 @@ public class Input {
                   confirmacao = false;
               }
               
-              repositorioDePedidos.salva(new Pedido(cpf, confirmacao, pizzas));
+              repositorioDePedidos.salva(new Pedido(cpf, confirmacao, itensPedidos));
           }
 
           leitorDeBuffer.close();         

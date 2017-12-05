@@ -33,7 +33,7 @@ public class Pedido {
     /**
      * Lista de pizzas pedidas.
      */
-    private ArrayList<String, String> pizzas;
+    private ArrayList<ItemPedido> itensPedidos;
 
     /**
      * @param cpf
@@ -41,7 +41,7 @@ public class Pedido {
      * @param Boolean 
      * @param pizzas
      */
-    public void Pedido(String cpf, ArrayList<String, String> pizzas) {
+    public Pedido(String cpf, boolean confirmacao, ArrayList<ItemPedido> itensPedidos) {
         // TODO implement here
     }
 

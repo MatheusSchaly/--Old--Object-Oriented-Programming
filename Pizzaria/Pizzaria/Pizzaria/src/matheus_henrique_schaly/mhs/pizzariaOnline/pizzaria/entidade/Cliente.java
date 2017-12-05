@@ -33,7 +33,7 @@ public class Cliente {
      * @param cpf 
      * @param endereco
      */
-    public void Cliente(String nome, String telefone, String cpf, String endereco) {
+    public Cliente(String nome, String telefone, String cpf, String endereco) {
         // TO DO here
     }
 
