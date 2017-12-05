@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.*;
 import matheus_henrique_schaly.mhs.pizzariaOnline.persistencia.Repositorio;
 import matheus_henrique_schaly.mhs.pizzariaOnline.pizzaria.entidade.*;
+import matheus_henrique_schaly.mhs.pizzariaOnline.pizzaria.view.Vendido;
 
 /**
  * Gerencia os arquivos recebidos e controla o fluxo do sistema.
@@ -214,8 +215,8 @@ public class Input {
      * Seleciona as pizzas vendidas e invoca o relatorio.
      */
     private void pizzasVendidas() {
-        // TODO implement here
-        return null;
+        Vendido relatorio = new Vendido("PIZZAS VENDIDAS", "FIM DO RELATORIO", repositorioDePedidos);
+        relatorio.run();
     }
 
     /**

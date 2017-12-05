@@ -34,57 +34,30 @@ public class Pedido {
      * Lista de pizzas pedidas.
      */
     private ArrayList<ItemPedido> itensPedidos;
+    
+    private boolean confirmacao;
 
     /**
      * @param cpf
-     * @param cliente
-     * @param Boolean 
-     * @param pizzas
+     * @param confirmacao
+     * @param itensPedidos
      */
     public Pedido(String cpf, boolean confirmacao, ArrayList<ItemPedido> itensPedidos) {
         // TODO implement here
     }
 
-    /**
-     * @return
-     */
-    public int getId() {
-        // TODO implement here
-        return 0;
+    public ArrayList<ItemPedido> getItemPedidos()
+    {
+        return itensPedidos;
     }
-
-    /**
-     * @return
-     */
-    public String getCpf() {
-        // TODO implement here
-        return null;
+    
+    public ItemPedido getItemPedido(int i)
+    {
+        return itensPedidos.get(i);
     }
-
-    /**
-     * @param cliente 
-     * @return
-     */
-    public void setCpf(String cpf) {
-        // TODO implement here
-        return null;
+    
+    public boolean getConfirmacao()
+    {
+        return this.confirmacao;
     }
-
-    /**
-     * @return
-     */
-    public ArrayList<String> getPizzas() {
-        // TODO implement here
-        return null;
-    }
-
-    /**
-     * @param pizzas 
-     * @return
-     */
-    public void setPizzas(ArrayList<String> pizzas) {
-        // TODO implement here
-        return null;
-    }
-
 }
