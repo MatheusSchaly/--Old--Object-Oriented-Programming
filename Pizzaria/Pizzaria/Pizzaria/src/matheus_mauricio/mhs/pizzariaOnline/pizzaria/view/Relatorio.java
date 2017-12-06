@@ -1,10 +1,10 @@
-package matheus_henrique_schaly.mhs.pizzariaOnline.pizzaria.view;
+package matheus_mauricio.mhs.pizzariaOnline.pizzaria.view;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import matheus_henrique_schaly.mhs.pizzariaOnline.persistencia.Repositorio;
-import matheus_henrique_schaly.mhs.pizzariaOnline.pizzaria.entidade.ItemPedido;
+import matheus_mauricio.mhs.pizzariaOnline.persistencia.Repositorio;
+import matheus_mauricio.mhs.pizzariaOnline.pizzaria.entidade.ItemPedido;
 
 /**
  *  Classe base para relatorios de pizzas vendidas e nao vendidas

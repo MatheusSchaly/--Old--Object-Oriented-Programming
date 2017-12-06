@@ -1,7 +1,7 @@
-package matheus_henrique_schaly.mhs.pizzariaOnline.pizzaria.view;
+package matheus_mauricio.mhs.pizzariaOnline.pizzaria.view;
 
-import matheus_henrique_schaly.mhs.pizzariaOnline.persistencia.Repositorio;
-import matheus_henrique_schaly.mhs.pizzariaOnline.pizzaria.entidade.Pedido;
+import matheus_mauricio.mhs.pizzariaOnline.persistencia.Repositorio;
+import matheus_mauricio.mhs.pizzariaOnline.pizzaria.entidade.Pedido;
 
 /**
  *  Criador do relatorio de pizzas vendidas

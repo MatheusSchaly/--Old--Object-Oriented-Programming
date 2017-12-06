@@ -1,6 +1,6 @@
-package matheus_henrique_schaly.mhs.pizzariaOnline.main;
+package matheus_mauricio.mhs.pizzariaOnline.main;
 
-import matheus_henrique_schaly.mhs.pizzariaOnline.lib.io.Input;
+import matheus_mauricio.mhs.pizzariaOnline.lib.io.Input;
 
 /**
  * Inicializa o programa.

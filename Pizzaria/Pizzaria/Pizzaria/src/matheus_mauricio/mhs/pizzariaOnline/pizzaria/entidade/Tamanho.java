@@ -1,4 +1,4 @@
-package matheus_henrique_schaly.mhs.pizzariaOnline.pizzaria.entidade;
+package matheus_mauricio.mhs.pizzariaOnline.pizzaria.entidade;
 
 /**
  * Gerencia caracteristicas de tamanho de uma pizza
