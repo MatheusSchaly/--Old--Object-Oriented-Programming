@@ -1,26 +1,31 @@
 package matheus_henrique_schaly.mhs.pizzariaOnline.pizzaria.view;
 
 import matheus_henrique_schaly.mhs.pizzariaOnline.persistencia.Repositorio;
-import matheus_henrique_schaly.mhs.pizzariaOnline.pizzaria.entidade.ItemPedido;
 import matheus_henrique_schaly.mhs.pizzariaOnline.pizzaria.entidade.Pedido;
 
 /**
- *
- * @author Mauricio
+ *  Criador do relatorio de pizzas nao vendidas
+ * 
+ * @author Matheus Henrique Schaly e Mauricio Macario de Farias Junior
  */
 public class NaoVendido extends Relatorio {
-    
-    private Repositorio<ItemPedido> itensPedidos;
 
-    public NaoVendido(String cabecalho, String rodape, Repositorio<Pedido> pedidos) {
-        super(cabecalho, rodape);
+    /**
+     * Construtor - Organiza Lista de itens pedidos de pedidos não confirmados
+     * @param cabecalho Cabeçalho a ser impresso no começo do arquivo
+     * @param rodape Rodape a ser impresso no final do arquivo
+     * @param titulo Titulo do arquivo
+     * @param pedidos Pedidos que serão usados para a análise
+     */
+    public NaoVendido(String cabecalho, String rodape, String titulo, Repositorio<Pedido> pedidos) {
+        super(cabecalho, rodape, titulo);
         
         boolean nova;
         for (int i=0; i<pedidos.getAll().size(); i++)
         {
             if (!pedidos.get(i).getConfirmacao())
             {
-                for (int j=0; i<pedidos.get(i).getItemPedidos().size(); i++)
+                for (int j=0; j<pedidos.get(i).getItemPedidos().size(); j++)
                 {
                     nova = true;
                     for (int k=0; k<itensPedidos.getAll().size(); k++)

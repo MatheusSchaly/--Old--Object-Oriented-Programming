@@ -14,7 +14,7 @@ import matheus_henrique_schaly.mhs.pizzariaOnline.pizzaria.view.Vendido;
 /**
  * Gerencia os arquivos recebidos e controla o fluxo do sistema.
  * 
- * @author Matheus Henrique Schaly
+ * @author Matheus Henrique Schaly e Mauricio Macario de Farias Junior
  */
 public class Input {
 
@@ -71,6 +71,7 @@ public class Input {
             leitorDeArquivo = new FileReader(nomeArquivo);
             leitorDeBuffer = new BufferedReader(leitorDeArquivo);
             
+            
             // Le primeira linha, quantidade de tamanhos
             quantidadeTamanhos = Integer.parseInt(leitorDeBuffer.readLine());
 
@@ -82,7 +83,7 @@ public class Input {
 
             // Le quantidade de pizzas
             quantidadePizzas = Integer.parseInt(leitorDeBuffer.readLine());
-
+            
             for (int i = 0; i < quantidadePizzas; i++) {
                 // Le nome da pizza
                 nome = leitorDeBuffer.readLine();
@@ -104,9 +105,8 @@ public class Input {
                     repositorioDeItemPedido.salva(new ItemPedido(repositorioDePizzas.get(repositorioDePizzas.getAll().size()-1),
                             repositorioDeTamanho.get(j), new BigDecimal(leitorDeBuffer.readLine())));
                 }
-                
-                leitorDeBuffer.close();
             }
+            leitorDeBuffer.close();
         }
         catch(FileNotFoundException ex) {
             System.out.println("Erro ao encontrar o arquivo '" + nomeArquivo + "'");
@@ -139,7 +139,6 @@ public class Input {
               endereco = leitorDeBuffer.readLine();
               repositorioDeClientes.salva(new Cliente(nome, telefone, cpf, endereco));
           }
-
           leitorDeBuffer.close();         
         }
         
@@ -193,16 +192,11 @@ public class Input {
               }
 
               // Le se pedido foi confirmado
-              if (leitorDeBuffer.readLine().equals("Confirmado")) {
-                  confirmacao = true;
-              }
-              else {
-                  confirmacao = false;
-              }
+              confirmacao = leitorDeBuffer.readLine().equals("Confirmado");
               
-              repositorioDePedidos.salva(new Pedido(cpf, confirmacao, itensPedidos));
+              repositorioDePedidos.salva(new Pedido(cpf, confirmacao, new ArrayList<>(itensPedidos)));
+              itensPedidos.clear();
           }
-
           leitorDeBuffer.close();         
         }
         
@@ -218,7 +212,7 @@ public class Input {
      * Seleciona as pizzas vendidas e invoca o relatorio.
      */
     private void pizzasVendidas() {
-        Vendido relatorio = new Vendido("PIZZAS VENDIDAS", "FIM DO RELATORIO", repositorioDePedidos);
+        Vendido relatorio = new Vendido("PIZZAS VENDIDAS", "FIM DO RELATORIO", "PizzasVendidas.txt", repositorioDePedidos);
         relatorio.run();
     }
 
@@ -226,7 +220,7 @@ public class Input {
      * Seleciona as pizzas nao vendidas e invoca o relatorio.
      */
     private void pizzasNaoVendidas() {
-        NaoVendido relatorio = new NaoVendido("PIZZAS NAO VENDIDAS", "FIM DO RELATORIO", repositorioDePedidos);
+        NaoVendido relatorio = new NaoVendido("PIZZAS NAO VENDIDAS", "FIM DO RELATORIO", "PizzasNaoVendidas.txt", repositorioDePedidos);
         relatorio.run();
     }
 

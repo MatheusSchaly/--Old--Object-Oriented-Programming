@@ -5,8 +5,8 @@ import java.util.*;
 /**
  * Repositorio que armazena elementos.
  * 
- * @author Matheus Schaly e Mauricio Farias 
- * @param <T>
+ * @author Matheus Henrique Schaly e Mauricio Macario de Farias Junior
+ * @param <T> Tipo que o repositorio suporta
  */
 public class Repositorio<T> {
 
@@ -19,7 +19,7 @@ public class Repositorio<T> {
     
     /**
      * 
-     * @param elemento 
+     * @param elemento Elemento que vai ser salvo
      */
     public void salva(T elemento)
     {

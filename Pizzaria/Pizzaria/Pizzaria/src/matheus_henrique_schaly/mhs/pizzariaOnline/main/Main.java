@@ -5,15 +5,16 @@ import matheus_henrique_schaly.mhs.pizzariaOnline.lib.io.Input;
 /**
  * Inicializa o programa.
  * 
- * @author Matheus Henrique Schaly
+ * @author Matheus Henrique Schaly e Mauricio Macario de Farias Junior
  */
-public class PizzariaOnline {
+public class Main {
 
     /**
      * Main method.
+     * @param args Argumentos que podem ser passados ao metodo main
      */
-    public static void main() {
-        new PizzariaOnline().run();
+    public static void main(String args[]) {
+        new Main().run();
     }
 
     /**

@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Gerencia as caracteristicas de uma Pizza.
  * 
- * @author Matheus Henrique Schaly
+ * @author Matheus Henrique Schaly e Mauricio Macario de Farias Junior
  */
 public class Pizza {
     
@@ -35,6 +35,10 @@ public class Pizza {
         return nome;
     }
     
+    /**
+     * Getter
+     * @return Coleção de ingredientes
+     */
     public ArrayList<String> getIngredients()
     {
         return ingredientes;
