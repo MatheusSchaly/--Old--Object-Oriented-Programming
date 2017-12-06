@@ -1,6 +1,5 @@
 package matheus_henrique_schaly.mhs.pizzariaOnline.pizzaria.entidade;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -9,27 +8,10 @@ import java.util.*;
  * @author Matheus Henrique Schaly
  */
 public class Pizza {
-
-    /**
-     * Default constructor
-     */
-    public Pizza() {
-    }
-
-    /**
-     * Nome da pizza.
-     */
-    private String nome;
-
-    /**
-     * Lista de ingredientes da pizza.
-     */
-    private ArrayList<String> ingredientes;
-
+    
     /**
      * @param nome
      * @param ingredientes
-     * @param valor
      */
     public Pizza(String nome, ArrayList<String> ingredientes) {
         this.nome = nome;
@@ -37,9 +19,24 @@ public class Pizza {
     }
 
     /**
+     * Nome da pizza.
+     */
+    private final String nome;
+
+    /**
+     * Lista de ingredientes da pizza.
+     */
+    private final ArrayList<String> ingredientes;
+
+    /**
      * @return
      */
     public String getNome() {
         return nome;
+    }
+    
+    public ArrayList<String> getIngredients()
+    {
+        return ingredientes;
     }
 }

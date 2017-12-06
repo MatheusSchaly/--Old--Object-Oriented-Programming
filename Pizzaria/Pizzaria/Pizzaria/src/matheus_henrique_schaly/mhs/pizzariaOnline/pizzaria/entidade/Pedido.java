@@ -10,11 +10,18 @@ import java.util.*;
 public class Pedido {
 
     /**
-     * Default constructor
+     * @param cpf
+     * @param confirmacao
+     * @param itensPedidos
      */
-    public Pedido() {
+    public Pedido(String cpf, boolean confirmacao, ArrayList<ItemPedido> itensPedidos) {
+        this.cpf = cpf;
+        this.confirmacao = confirmacao;
+        this.id = Pedido.nextId;
+        Pedido.nextId++;
+        this.itensPedidos = itensPedidos;
     }
-
+    
     /**
      * ID da classe Pedido.
      */
@@ -23,28 +30,19 @@ public class Pedido {
     /**
      * ID do objeto pedido.
      */
-    private int id;
+    private final int id;
 
     /**
      * Cliente que realizou o pedido.
      */
-    private String cpf;
+    private final String cpf;
 
     /**
      * Lista de pizzas pedidas.
      */
-    private ArrayList<ItemPedido> itensPedidos;
+    private final ArrayList<ItemPedido> itensPedidos;
     
-    private boolean confirmacao;
-
-    /**
-     * @param cpf
-     * @param confirmacao
-     * @param itensPedidos
-     */
-    public Pedido(String cpf, boolean confirmacao, ArrayList<ItemPedido> itensPedidos) {
-        // TODO implement here
-    }
+    private final boolean confirmacao;
 
     public ArrayList<ItemPedido> getItemPedidos()
     {
@@ -59,5 +57,15 @@ public class Pedido {
     public boolean getConfirmacao()
     {
         return this.confirmacao;
+    }
+    
+    public int getId()
+    {
+        return this.id;
+    }
+    
+    public String getCpf()
+    {
+        return this.cpf;
     }
 }

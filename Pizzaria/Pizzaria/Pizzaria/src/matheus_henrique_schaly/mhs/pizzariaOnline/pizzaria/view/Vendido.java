@@ -1,7 +1,6 @@
 package matheus_henrique_schaly.mhs.pizzariaOnline.pizzaria.view;
 
 import matheus_henrique_schaly.mhs.pizzariaOnline.persistencia.Repositorio;
-import matheus_henrique_schaly.mhs.pizzariaOnline.pizzaria.entidade.ItemPedido;
 import matheus_henrique_schaly.mhs.pizzariaOnline.pizzaria.entidade.Pedido;
 
 /**
@@ -9,8 +8,6 @@ import matheus_henrique_schaly.mhs.pizzariaOnline.pizzaria.entidade.Pedido;
  * @author Mauricio
  */
 public class Vendido extends Relatorio{
-    
-    Repositorio<ItemPedido> itensPedidos;
 
     public Vendido(String cabecalho, String rodape, Repositorio<Pedido> pedidos) {
         super(cabecalho, rodape);
@@ -44,14 +41,6 @@ public class Vendido extends Relatorio{
                 }
             }
         }
-    }
-
-    
-    
-    @Override
-    protected void saveCorpo()
-    {
-        
     }
     
 }

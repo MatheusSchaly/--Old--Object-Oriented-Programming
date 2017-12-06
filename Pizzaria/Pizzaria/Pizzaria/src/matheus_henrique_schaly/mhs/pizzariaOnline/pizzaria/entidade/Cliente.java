@@ -10,22 +10,22 @@ public class Cliente {
     /**
      * Nome do cliente.
      */
-    private String nome;
+    private final String nome;
 
     /**
      * Telefone do cliente.
      */
-    private String telefone;
+    private final String telefone;
 
     /**
      * CPF do cliente.
      */
-    private String cpf;
+    private final String cpf;
 
     /**
      * Endereco completo do cliente.
      */
-    private String endereco;
+    private final String endereco;
 
     /**
      * @param nome 
@@ -34,7 +34,29 @@ public class Cliente {
      * @param endereco
      */
     public Cliente(String nome, String telefone, String cpf, String endereco) {
-        // TO DO here
+        this.nome = nome;
+        this.telefone = telefone;
+        this.cpf = cpf;
+        this.endereco = endereco;
     }
-
+    
+    public String getNome()
+    {
+        return this.nome;
+    }
+    
+    public String getTelefone()
+    {
+        return this.telefone;
+    }
+    
+    public String getCpf()
+    {
+        return this.cpf;
+    }
+    
+    public String getEndereco()
+    {
+        return this.endereco;
+    }
 }

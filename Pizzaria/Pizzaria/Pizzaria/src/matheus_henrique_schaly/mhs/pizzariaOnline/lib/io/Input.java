@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.*;
 import matheus_henrique_schaly.mhs.pizzariaOnline.persistencia.Repositorio;
 import matheus_henrique_schaly.mhs.pizzariaOnline.pizzaria.entidade.*;
+import matheus_henrique_schaly.mhs.pizzariaOnline.pizzaria.view.NaoVendido;
 import matheus_henrique_schaly.mhs.pizzariaOnline.pizzaria.view.Vendido;
 
 /**
@@ -49,6 +50,8 @@ public class Input {
         geraMenu();
         geraClientes();
         geraPedidos();
+        pizzasVendidas();
+        pizzasNaoVendidas();
     }
 
     /**
@@ -223,8 +226,8 @@ public class Input {
      * Seleciona as pizzas nao vendidas e invoca o relatorio.
      */
     private void pizzasNaoVendidas() {
-        // TODO implement here
-        return null;
+        NaoVendido relatorio = new NaoVendido("PIZZAS NAO VENDIDAS", "FIM DO RELATORIO", repositorioDePedidos);
+        relatorio.run();
     }
 
 }
